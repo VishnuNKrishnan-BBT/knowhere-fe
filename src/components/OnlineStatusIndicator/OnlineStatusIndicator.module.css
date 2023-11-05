@@ -1,0 +1,18 @@
+.onlineStatusIndicator{
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
+    display: inline-block;
+}
+
+.online{
+    background-color: green;
+}
+
+.offline{
+    background-color: rgb(170, 0, 0);
+}
+
+.connecting{
+    background-color: orange;
+}

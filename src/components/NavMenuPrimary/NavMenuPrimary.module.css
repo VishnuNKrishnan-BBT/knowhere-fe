@@ -1,0 +1,104 @@
+.topBarContainer{
+    width: 100%;
+    height: 45px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5px 0 5px;
+}
+
+@media only screen and (max-width: 576px){
+    .topBarContainer{
+        display: none;
+    }
+}
+
+.brandLogoHolder{
+    height: 45px;
+    /* width: 150px; */
+    /* background-color: aquamarine; */
+    /* background-image: url('https://res.cloudinary.com/dqh32m4vp/image/upload/v1695988241/knoWhere/knowhereLogoGrey_qvwx1n.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.brandLogo{
+    height: 15px;
+}
+
+.brandName{
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.topMenuHolder{
+    height: 45px;
+    background-color: #111;
+    border-radius: 0 0 22.5px 22.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 3px 0 rgb(125, 125, 125);
+    transform: translateY(-5px);
+}
+
+.topMenuHolder .item{
+    height: 45px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+    cursor: pointer;
+}
+
+.topMenuHolder .item .itemLabel{
+    font-size: 18px;
+    font-weight: 600;
+    color: #eee;
+}
+
+.accountMenuHolder{
+    height: 45px;
+    width: 45px;
+    border-radius: 22.5px;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.activeItemUnderline{
+    width: 150px;
+    height: 3px;
+    background-color: #eee;
+    position: absolute;
+    top: 42px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.activateItem1{
+    transform: translateX(-397px);
+}
+
+.activateItem2{
+    transform: translateX(-197px);
+}
+
+.activateItem3{
+    transform: translateX(3px);
+}
+
+.activateItem4{
+    transform: translateX(203px);
+}
+
+.activateItem5{
+    transform: translateX(403px);
+}

@@ -1,0 +1,90 @@
+.valueHolder{
+    height: 36px;
+    width: 100%;
+    background-color: #eee;
+    margin-top: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.activeValueLabelHolder{
+    height: 100%;
+    width: calc(100% - 36px);
+    /* background-color: aqua; */
+    font-size: 13px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
+.dropdownIconHolder{
+    height: 36px;
+    width: 36px;
+    /* background-color: blanchedalmond; */
+    border-radius: 0 5px 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdownHolder{
+    position: absolute;
+    /* height: 100px; */
+    width: 200px;
+    /* background-color: #111; */
+    background: rgb(17,17,17);
+    background: linear-gradient(0deg, rgba(17,17,17,1) 0%, rgba(70,70,70,1) 100%);
+    transform: translate(0px, 10px);
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 3px 0 rgb(125, 125, 125);
+    overflow: hidden;
+    animation: loadDropdownHolder 0.2s 1 ease-in-out;
+    transition: max-height 0.3s;
+    z-index: 10;
+}
+
+/* @keyframes loadDropdownHolder{
+    0%{
+        height: 0px;
+    }
+    100%{
+        height: none;
+    }
+} */
+
+.collapsed{
+    max-height: 0px;
+}
+
+.expanded{
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.item{
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    /* background-color: aquamarine; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+
+.item:hover{
+    background-color: #444;
+}
+
+.item:not(:last-child){
+    border-bottom: 2px solid #eee;
+}
+
+.dropdownItemLabel{
+    color: #eee;
+}

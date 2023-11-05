@@ -1,0 +1,115 @@
+.filterHolder{
+    /* height: 80px; */
+    width: 100%;
+    background-color: rgba(255,255,255,1);
+    /* background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 100%); */
+    border-radius: 5px;
+    margin-top: 10px;
+    /* box-shadow: 0 2px 3px 0 rgba(125, 125, 125, 0.5); */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: height 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+/* MOBILE ONLY */
+@media only screen and (max-width: 576px){
+    .filterHolder{
+        display: block;
+    }
+
+    .collapsed{
+        height: 70px;
+    }
+
+    .expanded{
+        height: 394px;
+    }
+}
+
+.item{
+    padding: 10px;
+    /* background-color: aqua; */
+}
+
+.item:not(:last-child){
+    /* border-right: 2px solid #eee; */
+}
+
+.label{
+    display: block;
+    color: #7a7a7a;
+}
+
+.textInput{
+    margin-top: 5px;
+    display: block;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    /* border-bottom: 1px solid black; */
+    width: 100%;
+    background-color: #eee;
+}
+
+.textInput:focus{
+    outline: 2px solid #111;
+}
+
+.ctaHolder{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    /* background-color: #7a7a7a; */
+}
+
+.primaryCTA{
+    width: 49%;
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(56, 56, 56) 100%);
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.primaryCTA:active{
+    transform: scale(95%);
+}
+
+.primaryCTA .label{
+    color: #eee;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.secondaryCTA{
+    width: 49%;
+    padding: 10px;
+    border: 2px solid #111;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.secondaryCTA:active{
+    transform: scale(95%);
+}
+
+.secondaryCTA .label{
+    color: #111;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 5px;
+}

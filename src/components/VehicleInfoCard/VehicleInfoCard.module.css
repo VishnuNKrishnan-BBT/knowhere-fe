@@ -1,0 +1,166 @@
+.card{
+    /* background-color: rgb(255, 255, 255); */
+    position: relative;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 100%);
+    /* border: 2px solid red; */
+    padding: 10px;
+    font-size: 30px;
+    /* text-align: center; */
+    border-radius: 5px;
+    /* height: 100px; */
+    cursor: pointer;
+    animation: loadItem 0.2s ease-in-out;
+    transition: border 0.1s ease-in-out;
+}
+
+/* .card:hover{
+    border: 2px solid #111;
+} */
+
+@keyframes loadItem{
+    0%{
+        opacity: 0%;
+        /* transform: translateY(-10px); */
+    }
+    100%{
+        opacity: 100%;
+        /* transform: translateY(0px); */
+    }
+}
+
+.licensePlateHolder{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.onlineStatus{
+    font-size: 18px;
+}
+
+.licensePlateNumber{
+    font-size: 20px;
+    font-weight: 800;
+    display: inline-block;
+}
+
+.carModel{
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(130, 130, 130);
+}
+
+.driverName{
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(130, 130, 130);
+}
+
+.infoIconsHolder{
+    min-height: 30px;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* background-color: antiquewhite; */
+}
+
+.infoIconHolder{
+    /* padding: 5px; */
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoIcon{
+    background-color: rgba(0, 143, 0, 0.3);
+}
+
+.warningIcon{
+    background-color: rgba(143, 0, 0, 0.3);
+}
+
+.infoIconHolder:not(:last-child){
+    margin-right: 5px;
+}
+
+.ctaHolder{
+    margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.primaryCta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    flex-wrap: wrap;
+    cursor: pointer;
+    background: rgb(17,17,17);
+    background: linear-gradient(0deg, rgba(17,17,17,1) 0%, rgba(70,70,70,1) 100%);
+}
+
+.primaryCta:hover{
+    background: rgb(17,17,17);
+    background: linear-gradient(180deg, rgba(17,17,17,1) 0%, rgba(70,70,70,1) 100%);
+}
+
+.primaryCta .ctaLabel{
+    color: #eee;
+    font-weight: 500;
+}
+
+.primaryCta:hover{
+    background-color: rgb(210, 210, 210);
+}
+
+.secondaryCta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.secondaryCta:hover{
+    background-color: rgb(210, 210, 210);
+}
+
+.w49perc{
+    width: 49%;
+}
+
+.w100perc{
+    width: 100%;
+}
+
+.photoHolder{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 80px;
+    width: 80px;
+    border: 2px solid #c0c0c0;
+    border-radius: 50%;
+    /* background-color: brown; */
+    /* background-image: url('https://res.cloudinary.com/dqh32m4vp/image/upload/v1695988091/samples/people/smiling-man.jpg'); */
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
