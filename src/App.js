@@ -11,6 +11,7 @@ import Settings from './pages/Settings/Settings';
 import AboutVehicle from './pages/AboutVehicle/AboutVehicle';
 import TrackMap from './pages/TrackMap/TrackMap';
 import AssignDriver from './pages/AssignDriver/AssignDriver';
+import AddNewVehicle from './pages/AddNewVehicle/AddNewVehicle';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/track" element={<Track />} />
             <Route path="/track/about" element={<AboutVehicle />} />
             <Route path="/assignUser" element={<AssignDriver />} />
+            <Route path="/newVehicle" element={<AddNewVehicle />} />
             <Route path="/track/birdseye" element={<TrackMap />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/search" element={<Search />} />
