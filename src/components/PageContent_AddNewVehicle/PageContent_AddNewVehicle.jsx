@@ -39,7 +39,7 @@ function PageContent_AddNewVehicle() {
     return (
         <>
             <div className={`${Styles.content}`}>
-                <div className={`${Styles.inputsHolder}`}>
+                <div className={`${Styles.detailsInputHolder}`}>
                     <InputWithIcon value={trackerId} onChange={setTrackerId} placeholder={'Tracker ID'} icon={'memory'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
                     <InputWithIcon value={trackerId} onChange={setTrackerId} placeholder={'Vehicle ID'} icon={'directions_car'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
                     <InputWithIcon value={licensePlate} onChange={setLicensePlate} placeholder={'License Plate'} icon={'123'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
