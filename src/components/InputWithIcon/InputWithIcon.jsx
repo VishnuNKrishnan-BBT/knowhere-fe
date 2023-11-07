@@ -8,7 +8,7 @@ function InputWithIcon({ ...props }) {
             <div className={`${Styles.iconHolder}`}>
                 {props.icon && <GoogleIcon iconName={props.icon} style={{ fontSize: '24px' }} />}
             </div>
-            <input className={`${Styles.input}`} type={props.inputType ? props.inputType : 'text'} placeholder={props.placeholder ? props.placeholder : ''} />
+            <input className={`${Styles.input}`} type={props.inputType ? props.inputType : 'text'} placeholder={props.placeholder ? props.placeholder : ''} value={props.value} onChange={e => props.onChange(e.target.value)} />
         </div>
     )
 }

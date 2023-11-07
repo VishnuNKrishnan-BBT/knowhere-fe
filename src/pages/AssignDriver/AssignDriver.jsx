@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useMainContext } from '../../contexts/MainContext'
 import PageContentWrapper from '../../components/PageContentWrapper/PageContentWrapper'
 import PageContent_AssignUser from '../../components/PageContent_AssignUser/PageContent_AssignUser'
@@ -10,6 +10,7 @@ function AssignDriver() {
     const { currentVehicle } = useMainContext()
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     //Redirect to /track if currentVehicle == null
     useEffect(() => {
@@ -26,6 +27,8 @@ function AssignDriver() {
                 googleIcon={'person_add'}
                 // sideBarItems={sideBarItems}
                 content={<PageContent_AssignUser />}
+                enableBackBtn
+                backLink={'/track'}
             />
         </>
     )

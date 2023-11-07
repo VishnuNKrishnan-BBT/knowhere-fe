@@ -38,6 +38,8 @@ function AboutVehicle() {
                 pageDescription={'Vehicle Information'}
                 sideBarItems={sideBarItems}
                 content={<PageContent_AboutVehicle />}
+                enableBackBtn
+                backLink={'/track'}
             />
         </>
     )

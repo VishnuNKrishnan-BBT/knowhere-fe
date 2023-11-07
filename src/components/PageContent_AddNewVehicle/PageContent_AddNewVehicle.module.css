@@ -1,0 +1,79 @@
+.content{
+    width: 100%;
+    height: calc(100vh - 132px);
+    /* border: 2px solid red; */
+    padding: 20px 0;
+    overflow-y: scroll;
+}
+
+.inputsHolder{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.ctaHolder{
+    height: 50px;
+    width: 100%;
+    margin-top: 30px;
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.primaryCTA{
+    width: 49%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(56, 56, 56) 100%);
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.primaryCTA:active{
+    transform: scale(95%);
+}
+
+.primaryCTA .label{
+    color: #eee;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.secondaryCTA{
+    width: 49%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.secondaryCTA:active{
+    transform: scale(95%);
+}
+
+.secondaryCTA .label{
+    color: #111;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+/* MOBILE ONLY */
+@media only screen and (max-width: 576px){
+    .content{
+        height: calc(100vh - 77px);
+    }
+}

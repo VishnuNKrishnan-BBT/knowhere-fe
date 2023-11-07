@@ -55,7 +55,7 @@ function TrackMap() {
         properties: {},
         geometry: {
             type: "LineString",
-            coordinates: getCoords()
+            coordinates: [22.5, 55.5]
         }
     }
 

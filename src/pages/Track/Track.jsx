@@ -20,7 +20,7 @@ function Track() {
         {
             title: 'Link New Vehicle',
             googleIcon: 'add_circle',
-            link: ''
+            link: '/newVehicle'
         }
     ]
 
