@@ -1,5 +1,5 @@
-import axios from "axios";
-import { logger } from "../utils/utils";
+import axios from "axios"
+import { logger } from "../utils/utils"
 
 export const addNewVehicle = async vehicleDetails => {
 
@@ -11,6 +11,6 @@ export const addNewVehicle = async vehicleDetails => {
         return response.data
     } catch (error) {
         // Handle any errors that occurred during the request
-        console.error(`Error: addNewVehicle(${vehicleDetails.vehicleId})`, error);
+        console.error(`Error: addNewVehicle(${vehicleDetails.vehicleId})`, error)
     }
-};
+}

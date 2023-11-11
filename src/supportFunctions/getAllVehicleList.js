@@ -1,25 +1,22 @@
-import axios from "axios";
-import { logger } from "../utils/utils";
+import axios from "axios"
+import { logger } from "../utils/utils"
 
 export const getAllVehiclesList = async () => {
 
-    const postData = {
-        accountId: 1212621,
-        mode: 'cors',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-        }
+    const headers = {
+        'Authorization': 'your-secret-token',
     }
 
     try {
         // Handle the response data as needed
-        // logger('log', (`getAllVehiclesList(1212621 Hardcoded)`, response.data));
-        const response = await axios.post(`${process.env.REACT_APP_KNOWHERE_BACKEND_HOST}/app/getAllVehiclesDetails`, postData);
-        return response.data
+        // logger('log', (`getAllVehiclesList(1212621 Hardcoded)`, response.data))
+        // const response = await axios.get(`${process.env.REACT_APP_KW_MS_VEHICLEDATA_BE_HOST}/allVehicles`, { headers })
+        const response = await axios.get(`http://127.0.0.1:4000/allVehicles`, { headers })
+        logger('log', response?.data.data)
+        return response.data.data
     } catch (error) {
         // Handle any errors that occurred during the request
-        console.error('Error:', error);
+        console.error('Error:', error)
         return null
     }
-};
+}

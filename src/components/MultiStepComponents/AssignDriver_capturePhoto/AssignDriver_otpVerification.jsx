@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Styles from './AssignDriver.module.css'
 import GoogleIcon from '../../GoogleIcon/GoogleIcon'
 import OtpInput from '../../OtpInput/OtpInput'
+import { useAssignDriverContext } from '../../../contexts/AssignDriverContext'
 
 function AssignDriver_otpVerification({ ...props }) {
+
+    //Import Assign DriverContext
+    const {
+        diallingCode,
+        mobileNumber
+    } = useAssignDriverContext()
 
     const maxFailureAllowed = 5
     const maxResendAllowed = 5
@@ -48,7 +55,7 @@ function AssignDriver_otpVerification({ ...props }) {
                 {resendCount != maxResendAllowed && <OtpInput />}
                 {
                     resendCount != maxResendAllowed &&
-                    <p className={`${Styles.otpInstruction}`}>The OTP has been sent to +971506738672.</p>
+                    <p className={`${Styles.otpInstruction}`}>The OTP has been sent to +{diallingCode}{mobileNumber}.</p>
                 }
 
                 {/* Resend Countdown */}

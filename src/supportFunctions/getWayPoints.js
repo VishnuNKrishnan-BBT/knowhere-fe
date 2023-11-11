@@ -1,5 +1,5 @@
-import axios from "axios";
-import { logger } from "../utils/utils";
+import axios from "axios"
+import { logger } from "../utils/utils"
 
 export const getWayPoints = async vehicleId => {
 
@@ -11,11 +11,11 @@ export const getWayPoints = async vehicleId => {
 
     try {
         // Handle the response data as needed
-        const response = await axios.post(`${process.env.REACT_APP_KNOWHERE_BACKEND_HOST}/app/getWayPoints`, postData);
-        logger('table', (`getWayPoints(${vehicleId})`, response.data));
+        const response = await axios.post(`${process.env.REACT_APP_KNOWHERE_BACKEND_HOST}/app/getWayPoints`, postData)
+        logger('table', (`getWayPoints(${vehicleId})`, response.data))
         return response.data
     } catch (error) {
         // Handle any errors that occurred during the request
-        console.error(`Error: getVehicleDetails(${vehicleId})`, error);
+        console.error(`Error: getVehicleDetails(${vehicleId})`, error)
     }
-};
+}

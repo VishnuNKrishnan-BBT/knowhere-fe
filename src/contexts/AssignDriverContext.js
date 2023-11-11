@@ -13,6 +13,7 @@ export function AssignDriver_ContextProvider({ children }) {
     const [diallingCode, setDiallingCode] = useState('')
     const [mobileNumber, setMobileNumber] = useState('')
     const [emailId, setEmailId] = useState('')
+    const [company, setCompany] = useState('')
 
     // Passing values and functions into the context
     const contextValues = {
@@ -27,7 +28,9 @@ export function AssignDriver_ContextProvider({ children }) {
         mobileNumber,
         setMobileNumber,
         emailId,
-        setEmailId
+        setEmailId,
+        company,
+        setCompany
     }
 
     return (

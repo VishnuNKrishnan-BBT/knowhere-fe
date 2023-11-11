@@ -87,12 +87,18 @@
     height: 57.5px;
     width: 57.5px;
     background-color: white;
+    border: 2px solid white;
     border-radius: 5px;
     margin-right: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: border 0.1s ease-in-out;
+}
+
+.backBtn:hover{
+    border: 2px solid #111;
 }
 
 .pageTitle{

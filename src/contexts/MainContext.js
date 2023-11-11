@@ -368,9 +368,9 @@ export function ContextProvider({ children }) {
         },
         {
             icon: 'directions_car',
-            label: 'Toyota Corolla',
-            value: 'Toyota Corolla',
-            description: 'Toyota Corolla'
+            label: 'Honda',
+            value: 'Honda',
+            description: 'Honda'
         },
         {
             icon: 'directions_car',

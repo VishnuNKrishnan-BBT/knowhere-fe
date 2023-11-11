@@ -25,10 +25,12 @@ function PageContent_Track() {
     const filterFleetByKeyword = (keyword) => {
         const filteredArray = fleetDetailsArray.filter((item) => {
             // Check if the driver includes the keyword (case-insensitive)
-            return item.driver.toLowerCase().includes(keyword.toLowerCase()) ||
-                item.model.toLowerCase().includes(keyword.toLowerCase()) ||
-                item.contactNo.toLowerCase().includes(keyword.toLowerCase()) ||
-                item.licensePlate.toLowerCase().includes(keyword.toLowerCase())
+            return true
+
+            // item.driver.toLowerCase().includes(keyword.toLowerCase()) ||
+            //     item.model.toLowerCase().includes(keyword.toLowerCase()) ||
+            //     item.contactNo.toLowerCase().includes(keyword.toLowerCase()) ||
+            //     item.licensePlate.toLowerCase().includes(keyword.toLowerCase())
         })
 
         return filteredArray;
@@ -113,30 +115,7 @@ function PageContent_Track() {
         var returnArray = []
         const fleetData = await getAllVehiclesList()
         fleetData !== null && fleetData.map((obj, key) => {
-            returnArray.push({
-                vehicleId: obj.vehicleId,
-                licensePlate: obj.licensePlate,
-                model: obj.vehicleDescription,
-                driver: obj.driverName,
-                assigned: obj.driverName != 'Not Assigned' ? true : false,
-                contactNo: '+971506738672',
-                contactNoVerified: true,
-                photo: obj.displayPictureBase64,
-                onlineStatus: key % 3 == 0 ? 'online' : 'offline',
-                iotSim: {
-                    simId: '001400714',
-                    activated: key % 5 == 0 ? false : true,
-                    ipv4: '100.89.57.2',
-                    lastOnlineTime: '2023-11-01T00:00:00.000Z',
-
-                },
-                infoIcons: [
-                    {
-                        icon: 'speed',
-                        type: 'warning'
-                    }
-                ]
-            })
+            returnArray.push(obj)
         })
         try {
             setFleetDetailsArray(returnArray)
