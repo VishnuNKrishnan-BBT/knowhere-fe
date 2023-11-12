@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Styles from './PageContent_AddNewVehicle.module.css'
 import InputWithIcon from '../InputWithIcon/InputWithIcon'
 import GoogleIcon from '../GoogleIcon/GoogleIcon'
 import { addNewVehicle } from '../../supportFunctions/addNewVehicle'
 
 function PageContent_AddNewVehicle() {
+
+    const navigate = useNavigate()
+
+    const [dataUploadComplete, setDataUploadComplete] = useState(false)
 
     const [trackerId, setTrackerId] = useState('')
     const [licensePlate, setLicensePlate] = useState('')
@@ -34,40 +39,54 @@ function PageContent_AddNewVehicle() {
             chassisNumber: chassisNumber
         })
         setResponse(response.message)
+
+        if (response.status == 200) {
+            setDataUploadComplete(true)
+            setTimeout(() => {
+                navigate('/track')
+            }, 3000)
+        }
     }
 
     return (
         <>
             <div className={`${Styles.content}`}>
-                <div className={`${Styles.detailsInputHolder}`}>
-                    <InputWithIcon value={trackerId} onChange={setTrackerId} placeholder={'Tracker ID'} icon={'memory'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
-                    <InputWithIcon value={trackerId} onChange={setTrackerId} placeholder={'Vehicle ID'} icon={'directions_car'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
-                    <InputWithIcon value={licensePlate} onChange={setLicensePlate} placeholder={'License Plate'} icon={'123'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
-                    <InputWithIcon value={manufacturer} onChange={setManufacturer} placeholder={'Manufacturer'} icon={'star_half'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
-                    <InputWithIcon value={model} onChange={setModel} placeholder={'Model'} icon={'hotel_class'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
-                    <InputWithIcon value={year} onChange={setYear} placeholder={'Year'} icon={'calendar_month'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
-                    <InputWithIcon value={colour} onChange={setColour} placeholder={'Colour'} icon={'palette'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
-                    <InputWithIcon value={transmission} onChange={setTransmission} placeholder={'Transmission'} icon={'auto_transmission'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
-                    <InputWithIcon value={odometer} onChange={setOdometer} placeholder={'Odometer'} icon={'speed'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
-                    <InputWithIcon value={engineNumber} onChange={setEngineNumber} placeholder={'Engine Number'} icon={'component_exchange'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
-                    <InputWithIcon value={chassisNumber} onChange={setChassisNumber} placeholder={'Chassis Number'} icon={'car_repair'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
+                {!dataUploadComplete ?
+                    <div className={`${Styles.detailsInputHolder}`}>
+                        <InputWithIcon value={trackerId} onChange={setTrackerId} placeholder={'Tracker ID'} icon={'memory'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
+                        <InputWithIcon value={trackerId} onChange={setTrackerId} placeholder={'Vehicle ID'} icon={'directions_car'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
+                        <InputWithIcon value={licensePlate} onChange={setLicensePlate} placeholder={'License Plate'} icon={'123'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
+                        <InputWithIcon value={manufacturer} onChange={setManufacturer} placeholder={'Manufacturer'} icon={'star_half'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
+                        <InputWithIcon value={model} onChange={setModel} placeholder={'Model'} icon={'hotel_class'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
+                        <InputWithIcon value={year} onChange={setYear} placeholder={'Year'} icon={'calendar_month'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
+                        <InputWithIcon value={colour} onChange={setColour} placeholder={'Colour'} icon={'palette'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
+                        <InputWithIcon value={transmission} onChange={setTransmission} placeholder={'Transmission'} icon={'auto_transmission'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 3 }} />
+                        <InputWithIcon value={odometer} onChange={setOdometer} placeholder={'Odometer'} icon={'speed'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 3, gridColumnEnd: 5 }} />
+                        <InputWithIcon value={engineNumber} onChange={setEngineNumber} placeholder={'Engine Number'} icon={'component_exchange'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
+                        <InputWithIcon value={chassisNumber} onChange={setChassisNumber} placeholder={'Chassis Number'} icon={'car_repair'} className={`${Styles.fullRowOnMobile}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }} />
 
-                    <div className={`${Styles.ctaHolder}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }}>
-                        <button className={`${Styles.secondaryCTA}`}>
-                            <span className={`${Styles.label}`}>
-                                <GoogleIcon iconName={'navigate_before'} style={{ color: '#111', marginRight: '6px', transform: 'translateY(5px)' }} />
-                                Previous
-                            </span>
-                        </button>
-                        <button className={`${Styles.primaryCTA}`} onClick={handleSubmit}>
-                            <span className={`${Styles.label}`}>
-                                Continue
-                                <GoogleIcon iconName={'navigate_next'} style={{ color: '#eee', marginLeft: '6px', transform: 'translateY(5px)' }} />
-                            </span>
-                        </button>
+                        <div className={`${Styles.ctaHolder}`} style={{ gridColumnStart: 1, gridColumnEnd: 5 }}>
+                            <button className={`${Styles.secondaryCTA}`}>
+                                <span className={`${Styles.label}`}>
+                                    <GoogleIcon iconName={'navigate_before'} style={{ color: '#111', marginRight: '6px', transform: 'translateY(5px)' }} />
+                                    Previous
+                                </span>
+                            </button>
+                            <button className={`${Styles.primaryCTA}`} onClick={handleSubmit}>
+                                <span className={`${Styles.label}`}>
+                                    Continue
+                                    <GoogleIcon iconName={'navigate_next'} style={{ color: '#eee', marginLeft: '6px', transform: 'translateY(5px)' }} />
+                                </span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <p>{response}</p>
+                    :
+                    <div className={`${Styles.detailsInputMessageHolder}`}>
+                        <GoogleIcon iconName={'cloud_done'} style={{ color: 'green', fontSize: '40px', fontWeight: 900 }} />
+                        <h2>{response}</h2>
+                        <p>You will be redirected in xx seconds...</p>
+                    </div>
+                }
             </div>
         </>
     )

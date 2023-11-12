@@ -9,11 +9,35 @@
 .detailsInputHolder{
     margin: 27px 0;
     width: 100%;
-    height: 200px;
+    /* height: 200px; */
     /* border: 2px solid blue; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
+}
+
+.detailsInputMessageHolder{
+    margin: 27px 0;
+    width: 100%;
+    height: 200px;
+    /* border: 2px solid blue; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: load 0.2s 1 ease-in-out;
+}
+
+@keyframes load{
+    0%{
+        opacity: 0%;
+        /* transform: translateY(-10px); */
+    }
+    100%{
+        opacity: 100%;
+        /* transform: translateY(0px); */
+    }
 }
 
 .ctaHolder{
@@ -81,6 +105,9 @@
         height: calc(100vh - 77px);
     }
     .detailsInputHolder{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .detailsInputMessageHolder{
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }
