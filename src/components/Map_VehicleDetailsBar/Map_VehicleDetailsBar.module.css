@@ -1,0 +1,62 @@
+.wrapper{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    z-index: 10;
+    background-color: rgba(255,255,255,0.5);
+    backdrop-filter: blur(7px);
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.5);
+    height: 125px;
+    width: calc(100% - 330px);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.photo{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 3px solid #111;
+    margin-right: 15px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('https://www.themoviedb.org/t/p/w500/fzNgCkDfWEmFknCDuU81Ypftmzg.jpg');
+}
+
+.detailsWrapper{
+    min-width: 300px
+}
+
+.licenseNumber{
+    font-size: 32px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.vehicleDetails{
+    font-size: 15px;
+    font-weight: 300;
+    color: #606060;
+    display: block;
+}
+
+.ctaHolder{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.cta{
+    height: 40px;
+    width: 40px;
+    background-color: #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

@@ -1,0 +1,25 @@
+.wrapper{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 10px solid #ad0000;
+    background-color: #eee;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.speed{
+    display: block;
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.unit{
+    display: block;
+    font-size: 12px;
+    font-weight: 200;
+    transform: translateY(-5px);
+}

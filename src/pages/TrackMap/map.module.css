@@ -15,9 +15,6 @@
 }
 
 .mapMarker{
-    height: 50px;
-    width: 50px;
-    background-color: black;
-    /* border-radius: 50%; */
-    z-index: 12;
+    z-index: 15;
+    transition: transform 2s ease-in-out;
 }

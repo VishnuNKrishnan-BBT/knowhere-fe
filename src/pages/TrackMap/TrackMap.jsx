@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
 import Map, { Source, Layer, Marker } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css';
 import mapStyles from './map.module.css'
 import NavMenuPrimary from '../../components/NavMenuPrimary/NavMenuPrimary';
 import LoadingOverlayForMap from '../../components/LoadingOverlayForMap/LoadingOverlayForMap';
@@ -8,6 +9,7 @@ import { getWayPoints } from '../../supportFunctions/getWayPoints';
 import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_Desktop/Map_VisitedLocations_Desktop';
 import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
 import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
+import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_VehicleDetailsBar';
 
 function TrackMap() {
     const [isLoading, setIsLoading] = useState(true)
@@ -32,10 +34,10 @@ function TrackMap() {
     }
 
     const [viewport, setViewport] = useState({
-        latitude: 24.5,
-        longitude: 54.5,
+        latitude: coords.length > 0 ? coords[0].latitude : 24.4,
+        longitude: coords.length > 0 ? coords[0].longitude : 54.5,
         zoom: 12,
-        pitch: 75,
+        pitch: 0,
         bearing: 0
     })
 
@@ -64,12 +66,23 @@ function TrackMap() {
         }
     }
 
+    // TESTING ONLY
+    const [heading, setHeading] = useState(0)
+
+    useEffect(() => {
+        setInterval(() => {
+            setHeading(Math.floor(Math.random() * 360))
+        }, 5000)
+    }, [])
+
     return (
         <>
             {isLoading && <LoadingOverlayForMap />}
             <div className={mapStyles.mapContainer}>
                 <Map_VisitedLocations_Desktop />
+                <Map_VehicleDetailsBar onClose={onBack} />
                 <Map
+                    attributionControl={false}
                     {...viewport}
                     ref={mapRef}
                     projection={"globe"}
@@ -93,16 +106,15 @@ function TrackMap() {
                         />
                     </Source>
                     <Marker
-                        latitude={coords.length > 0 ? coords[coords.length - 1][0] : 0}
-                        longitude={coords.length > 0 ? coords[coords.length - 1][1] : 0}
+                        latitude={25}
+                        longitude={55}
                     >
-                        <div className={mapStyles.mapMarker}>
-                            <img src={VehicleTop} alt="dimblicks" />
+                        <div className={mapStyles.mapMarker} style={{ transform: `rotate(${heading}deg)` }}>
+                            <img src={VehicleTop} alt="" />
                             {/* <GoogleIcon iconName={'assistant_navigation'} /> */}
                         </div>
                     </Marker>
                 </Map>
-                <button onClick={onBack} className={mapStyles.button}>Back</button>
             </div>
         </>
     )
