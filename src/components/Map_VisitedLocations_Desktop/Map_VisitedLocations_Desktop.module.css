@@ -1,0 +1,149 @@
+.wrapper{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background-color: rgba(255,255,255,0.5);
+    backdrop-filter: blur(7px);
+    width: 300px;
+    height: calc(100vh - 20px);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.5)
+}
+
+.topBar{
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    background: rgb(17,17,17);
+    background: linear-gradient(0deg, rgba(17,17,17,1) 0%, rgba(70,70,70,1) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.itemsHolder{
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 15px 0;
+    /* border: 2px solid red; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.item{
+    width: 100%;
+    height: fit-content;
+    /* background-color: aquamarine; */
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    animation: loadIn 0.2s ease-in-out 1;
+}
+
+@keyframes loadIn{
+    0%{
+        opacity: 0%;
+        transform: translateY(-10px);
+    }
+    100%{
+        opacity: 100%;
+        transform: translateY(0px);
+    }
+}
+
+.timeStampConnectorWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeWrapper{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    /* background-color: rgba(127, 65, 65, 0.961); */
+    border: 3px solid #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.connector{
+    width: 3px;
+    /* height: calc(100% - 50px); */
+    background-color: #111;
+    transform: translateY(0px);
+}
+
+.timeHolder{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timestamp{
+    font-weight: 900;
+    color: #eee;
+    font-size: 12px;
+}
+
+
+
+.locationWrapper{
+    width: calc(100% - 74px);
+    /* height: 100%; */
+    /* background-color: brown; */
+    padding: 0 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.locationMain{
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.locationSub{
+    font-size: 13px;
+    font-weight: 300;
+    color: #606060;
+}
+
+.infoIcon{
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.infoIcon:hover{
+    transform: scale(120%);
+}
+
+.day{
+    font-size: 20px;
+    font-weight: 500;
+    color: #eee;
+    text-align: center;
+}
+
+.dateNavBtn{
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date{
+    color: #b0b0b0;
+    font-size: 13px;
+    text-align: center;
+}

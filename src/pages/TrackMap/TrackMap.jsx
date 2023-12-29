@@ -2,15 +2,18 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
 import Map, { Source, Layer, Marker } from 'react-map-gl'
 import mapStyles from './map.module.css'
-import vehicleTop from '../../assets/vehicleTop0.png'
 import NavMenuPrimary from '../../components/NavMenuPrimary/NavMenuPrimary';
 import LoadingOverlayForMap from '../../components/LoadingOverlayForMap/LoadingOverlayForMap';
 import { getWayPoints } from '../../supportFunctions/getWayPoints';
+import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_Desktop/Map_VisitedLocations_Desktop';
+import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
+import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
 
 function TrackMap() {
     const [isLoading, setIsLoading] = useState(true)
 
-    const [markerPosition, setMarkerPosition] = useState([0, 0])
+    const [coords, setCoords] = useState([])
+    const [markerPosition, setMarkerPosition] = useState([22.5, 55.5])
 
     const mapRef = useRef(null)
 
@@ -19,6 +22,7 @@ function TrackMap() {
         setTimeout(() => {
             setIsLoading(false)
         }, 5000)
+        getCoords()
     }, [])
 
 
@@ -42,11 +46,12 @@ function TrackMap() {
     const getCoords = async () => {
         const coords = await getWayPoints('WCQ-975-BCQ-080')
         setMarkerPosition(coords[coords.length - 1])
+        setCoords(coords)
 
-        // var returnValue = []
-        // coords.map((obj, key) => {
-        //     returnValue.push(obj)
-        // })
+        var returnValue = []
+        coords.map((obj, key) => {
+            returnValue.push(obj)
+        })
         return coords
     }
 
@@ -55,7 +60,7 @@ function TrackMap() {
         properties: {},
         geometry: {
             type: "LineString",
-            coordinates: [22.5, 55.5]
+            coordinates: coords
         }
     }
 
@@ -63,7 +68,7 @@ function TrackMap() {
         <>
             {isLoading && <LoadingOverlayForMap />}
             <div className={mapStyles.mapContainer}>
-                {/* <NavMenuPrimary /> */}
+                <Map_VisitedLocations_Desktop />
                 <Map
                     {...viewport}
                     ref={mapRef}
@@ -87,14 +92,15 @@ function TrackMap() {
                             }}
                         />
                     </Source>
-                    {/* <Marker
-                        latitude={markerPosition[0]}
-                        longitude={markerPosition[1]}
+                    <Marker
+                        latitude={coords.length > 0 ? coords[coords.length - 1][0] : 0}
+                        longitude={coords.length > 0 ? coords[coords.length - 1][1] : 0}
                     >
                         <div className={mapStyles.mapMarker}>
-                            <img src={vehicleTop} alt="" />
+                            <img src={VehicleTop} alt="dimblicks" />
+                            {/* <GoogleIcon iconName={'assistant_navigation'} /> */}
                         </div>
-                    </Marker> */}
+                    </Marker>
                 </Map>
                 <button onClick={onBack} className={mapStyles.button}>Back</button>
             </div>

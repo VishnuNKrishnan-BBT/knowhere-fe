@@ -33,7 +33,7 @@ function AssignDriver_capturePhoto({ ...props }) {
                 </button>
                 {
                     photoBase64 == '' ?
-                        <button className={`${Styles.primaryCTA}`} onClick={capturePhoto}>
+                        <button className={`${Styles.primaryCTA}`} onClick={(e) => { capturePhoto(e) }}>
                             <span className={`${Styles.label}`}>
                                 Capture
                                 <GoogleIcon iconName={'screenshot_frame'} style={{ color: '#eee', marginLeft: '6px', transform: 'translateY(5px)' }} />

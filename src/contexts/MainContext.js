@@ -406,6 +406,9 @@ export function ContextProvider({ children }) {
     // Selected vehicle parameters
     const [currentVehicle, setCurrentVehicle] = useState(null)
 
+    //Selected date parameters
+    const [selectedDate, setSelectedDate] = useState(null)
+
     // Passing values and functions into the context
     const contextValues = {
         isLoading_pageContent,
@@ -421,7 +424,9 @@ export function ContextProvider({ children }) {
         fleetSearchOnlineStatus,
         setFleetSearchOnlineStatus,
         currentVehicle,
-        setCurrentVehicle
+        setCurrentVehicle,
+        selectedDate,
+        setSelectedDate
     }
 
     return (
