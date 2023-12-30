@@ -15,6 +15,12 @@
     align-items: center;
 }
 
+.photoLicenseDetailsWrapper{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .photo{
     height: 100px;
     width: 100px;

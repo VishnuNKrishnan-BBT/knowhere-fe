@@ -75,12 +75,21 @@ function TrackMap() {
         }, 5000)
     }, [])
 
+    const [leftPaneView, setLeftPaneView] = useState('locations')
+    const toggleLeftPaneView = () => {
+        if (leftPaneView == 'locations') {
+            setLeftPaneView('calendar')
+        } else if (leftPaneView == 'calendar') {
+            setLeftPaneView('locations')
+        }
+    }
+
     return (
         <>
             {isLoading && <LoadingOverlayForMap />}
             <div className={mapStyles.mapContainer}>
-                <Map_VisitedLocations_Desktop />
-                <Map_VehicleDetailsBar onClose={onBack} />
+                <Map_VisitedLocations_Desktop view={leftPaneView} toggleView={toggleLeftPaneView} />
+                <Map_VehicleDetailsBar onBack={onBack} />
                 <Map
                     attributionControl={false}
                     {...viewport}
