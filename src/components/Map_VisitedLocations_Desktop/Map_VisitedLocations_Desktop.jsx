@@ -12,9 +12,9 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView }) {
                 <div className={`${Styles.dateNavBtn}`}>
                     <GoogleIcon iconName={'arrow_back_ios_new'} style={{ color: '#eee' }} />
                 </div>
-                <div onClick={toggleView}>
-                    <p className={`${Styles.day}`}>Tuesday</p>
-                    <p className={`${Styles.date}`}>21-11-2023</p>
+                <div className={Styles.headingHolder} onClick={toggleView}>
+                    <p className={`${Styles.day}`}>{view == 'locations' && 'Tuesday'}{view == 'calendar' && 'December'}</p>
+                    <p className={`${Styles.date}`}>{view == 'locations' && '21-11-2023'}{view == 'calendar' && '2023'}</p>
                 </div>
                 <div className={`${Styles.dateNavBtn}`}>
                     <GoogleIcon iconName={'arrow_forward_ios'} style={{ color: '#eee' }} />

@@ -1,0 +1,62 @@
+.wrapper{
+    position: fixed;
+    z-index: 10;
+    right: 10px;
+    top: 10px;
+    /* background-color: aqua; */
+    height: calc(100vh - 155px);
+}
+
+.ctaGroup{
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+
+.ctaGroup:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.ctaUp{
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.ctaMid{
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.ctaDown{
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+    border-radius: 0 0 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.singleCta{
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

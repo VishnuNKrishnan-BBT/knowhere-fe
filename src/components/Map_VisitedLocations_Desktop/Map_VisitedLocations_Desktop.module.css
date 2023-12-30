@@ -23,6 +23,10 @@
     align-items: center;
 }
 
+.headingHolder{
+    cursor: pointer;
+}
+
 .itemsHolder{
     width: 100%;
     height: calc(100% - 60px);

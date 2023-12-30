@@ -10,6 +10,7 @@ import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_
 import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
 import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
 import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_VehicleDetailsBar';
+import Map_mapControls from '../../components/Map_mapControls/Map_mapControls';
 
 function TrackMap() {
     const [isLoading, setIsLoading] = useState(true)
@@ -43,6 +44,18 @@ function TrackMap() {
 
     const flyToSite = () => {
         mapRef.current.flyTo({ center: getCoords()[0], duration: 60000, zoom: 15, pitch: 60 })
+    }
+
+    const recenter = () => {
+        mapRef.current.flyTo({ center: [55, 25], duration: 1000 })
+    }
+
+    const zoomIn = () => {
+        mapRef.current.flyTo({ zoom: viewport.zoom + 1, duration: 250 })
+    }
+
+    const zoomOut = () => {
+        mapRef.current.flyTo({ zoom: viewport.zoom - 1, duration: 250 })
     }
 
     const getCoords = async () => {
@@ -90,6 +103,11 @@ function TrackMap() {
             <div className={mapStyles.mapContainer}>
                 <Map_VisitedLocations_Desktop view={leftPaneView} toggleView={toggleLeftPaneView} />
                 <Map_VehicleDetailsBar onBack={onBack} />
+                <Map_mapControls
+                    zoomIn={zoomIn}
+                    zoomOut={zoomOut}
+                    recenter={recenter}
+                />
                 <Map
                     attributionControl={false}
                     {...viewport}
@@ -117,6 +135,9 @@ function TrackMap() {
                     <Marker
                         latitude={25}
                         longitude={55}
+                        anchor='center'
+                        pitchAlignment='map'
+                        rotationAlignment='map'
                     >
                         <div className={mapStyles.mapMarker} style={{ transform: `rotate(${heading}deg)` }}>
                             <img src={VehicleTop} alt="" />
