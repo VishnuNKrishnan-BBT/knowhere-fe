@@ -3,8 +3,6 @@ import { logger } from "../utils/utils"
 
 export const getWayPoints = async () => {
 
-
-
     try {
         // Handle the response data as needed
         const response = await axios.get(`${process.env.REACT_APP_KNOWHERE_BACKEND_KW_MS_VEHICLE_DATA}/getWaypoints`, {
@@ -13,6 +11,7 @@ export const getWayPoints = async () => {
             }
         })
         logger('table', (`getWayPoints`, response.data))
+
         return response.data.data
     } catch (error) {
         // Handle any errors that occurred during the request

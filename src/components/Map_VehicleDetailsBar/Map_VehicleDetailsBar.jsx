@@ -1,11 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Styles from './Map_VehicleDetailsBar.module.css'
 import Speedometer from '../Speedometer/Speedometer'
 import GoogleIcon from '../GoogleIcon/GoogleIcon'
 
-function Map_VehicleDetailsBar({
-    onBack = null //To exit tracking screen and go back
-}) {
+function Map_VehicleDetailsBar({ liveSpeed = null }) {
+
+    const navigate = useNavigate();
+    const onBack = () => {
+        navigate('/track')
+    }
+
     return (
         <div className={`${Styles.wrapper}`}>
             <div className={`${Styles.photoLicenseDetailsWrapper}`}>
@@ -18,7 +23,7 @@ function Map_VehicleDetailsBar({
                 </div>
             </div>
             <Speedometer
-                speed={122}
+                speed={liveSpeed == null ? '...' : (liveSpeed * 3.6).toFixed(0)}
             />
             <div className={`${Styles.ctaHolder}`}>
                 <div className={`${Styles.cta}`}>

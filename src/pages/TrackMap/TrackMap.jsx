@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Map, { Source, Layer, Marker } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapStyles from './map.module.css'
+import { recenter, flyToSite } from '../../mapUtils/mapManipulators'
 import NavMenuPrimary from '../../components/NavMenuPrimary/NavMenuPrimary';
 import LoadingOverlayForMap from '../../components/LoadingOverlayForMap/LoadingOverlayForMap';
-import { getWayPoints } from '../../supportFunctions/getWayPoints';
+import { getPolylineConfig, getInitialPolylineCoords } from './mapHelpers';
 import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_Desktop/Map_VisitedLocations_Desktop';
 import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
 import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
@@ -13,82 +14,11 @@ import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_Ve
 import Map_mapControls from '../../components/Map_mapControls/Map_mapControls';
 
 function TrackMap() {
+
+    // User Experience
     const [isLoading, setIsLoading] = useState(true)
-
-    const [coords, setCoords] = useState([])
-    const [markerPosition, setMarkerPosition] = useState([22.5, 55.5])
-
-    const mapRef = useRef(null)
-
-    //Finish loading
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 5000)
-        getCoords()
-    }, [])
-
-
-    const navigate = useNavigate();
-    const onBack = () => {
-        navigate('/track')
-    }
-
-    const [viewport, setViewport] = useState({
-        latitude: coords.length > 0 ? coords[0].latitude : 24.4,
-        longitude: coords.length > 0 ? coords[0].longitude : 54.5,
-        zoom: 12,
-        pitch: 0,
-        bearing: 0
-    })
-
-    const flyToSite = () => {
-        mapRef.current.flyTo({ center: getCoords()[0], duration: 60000, zoom: 15, pitch: 60 })
-    }
-
-    const recenter = () => {
-        mapRef.current.flyTo({ center: [55, 25], duration: 1000 })
-    }
-
-    const zoomIn = () => {
-        mapRef.current.flyTo({ zoom: viewport.zoom + 1, duration: 250 })
-    }
-
-    const zoomOut = () => {
-        mapRef.current.flyTo({ zoom: viewport.zoom - 1, duration: 250 })
-    }
-
-    const getCoords = async () => {
-        const coords = await getWayPoints('WCQ-975-BCQ-080')
-        setMarkerPosition(coords[coords.length - 1])
-        setCoords(coords)
-
-        var returnValue = []
-        coords.map((obj, key) => {
-            returnValue.push(obj)
-        })
-        return coords
-    }
-
-    const dataOne = {
-        type: "Feature",
-        properties: {},
-        geometry: {
-            type: "LineString",
-            coordinates: coords
-        }
-    }
-
-    // TESTING ONLY
-    const [heading, setHeading] = useState(0)
-
-    useEffect(() => {
-        setInterval(() => {
-            setHeading(Math.floor(Math.random() * 360))
-        }, 5000)
-    }, [])
-
     const [leftPaneView, setLeftPaneView] = useState('locations')
+
     const toggleLeftPaneView = () => {
         if (leftPaneView == 'locations') {
             setLeftPaneView('calendar')
@@ -97,16 +27,119 @@ function TrackMap() {
         }
     }
 
+    // Polyine
+    const [coords, setCoords] = useState([])
+
+    //Map
+    const mapRef = useRef(null)
+    const [viewport, setViewport] = useState({
+        latitude: coords.length > 0 ? coords[0].latitude : 24.4,
+        longitude: coords.length > 0 ? coords[0].longitude : 54.5,
+        zoom: 1,
+        pitch: 0,
+        bearing: 0
+    })
+
+    // Markers
+    const [markerPosition, setMarkerPosition] = useState(null)
+    const [markerHeading, setMarkerHeading] = useState(0)
+
+    //Speed
+    const [liveSpeed, setLiveSpeed] = useState(null)
+
+    //Websocket Ref - Use this to utilize the WS connection outside useEffect
+    const socketRef = useRef(null)
+
+    //Finish loading
+    useEffect(() => {
+        getInitialPolylineCoords().then(coords => {
+            setCoords(coords)
+        })
+
+
+
+        //Initializing websocket connection for live tracking
+        const socket = new WebSocket(process.env.REACT_APP_KNOWHERE_BACKEND_KW_MS_WS_LIVE_LOCATION)
+
+        // Connection opened
+        socket.addEventListener('open', (event) => {
+            console.log('WebSocket connection opened:', event)
+            const initialMessage = JSON.stringify({ //==========REPLACE THESE HARDCODED VALUES!!!==============
+                trackerId: "API_TEST_MOB",
+                authToken: "tegw6637288jjchd"
+            })
+            socket.send(initialMessage);
+            console.log('Sent initial message:', initialMessage);
+        })
+
+        // Listen for messages
+        socket.addEventListener('message', (event) => {
+            const receivedMessage = JSON.parse(event.data)
+            console.log('Received message:', receivedMessage)
+
+            //===========PERFORM A TYPE CHECK FOR MESSAGE HERE============
+
+            if (
+                receivedMessage?.data?.waypoint?.data?.latitude !== undefined &&
+                receivedMessage?.data?.waypoint?.data?.longitude !== undefined &&
+                receivedMessage?.data?.waypoint?.data?.heading !== undefined
+            ) {
+                setMarkerPosition([receivedMessage?.data?.waypoint?.data?.longitude, receivedMessage?.data?.waypoint?.data?.latitude])
+                setMarkerHeading(receivedMessage?.data?.waypoint?.data?.heading)
+                setLiveSpeed(receivedMessage?.data?.waypoint?.data?.speed)
+
+                flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, 16)
+            }
+
+
+        })
+
+        // Connection closed
+        socket.addEventListener('close', (event) => {
+            console.log('WebSocket connection closed:', event)
+        })
+
+        // Save the socket reference to use it later
+        socketRef.current = socket
+
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 5000)
+
+        return () => {
+            socket.close()
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log('coords', coords.length);
+    }, [coords])
+
+
+    const polylineConfig = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+            type: "LineString",
+            coordinates: coords
+        }
+    }
+
     return (
         <>
             {isLoading && <LoadingOverlayForMap />}
             <div className={mapStyles.mapContainer}>
-                <Map_VisitedLocations_Desktop view={leftPaneView} toggleView={toggleLeftPaneView} />
-                <Map_VehicleDetailsBar onBack={onBack} />
+                <Map_VisitedLocations_Desktop
+                    view={leftPaneView}
+                    toggleView={toggleLeftPaneView}
+                />
+                <Map_VehicleDetailsBar
+                    liveSpeed={liveSpeed}
+                />
                 <Map_mapControls
-                    zoomIn={zoomIn}
-                    zoomOut={zoomOut}
-                    recenter={recenter}
+                    mapRef={mapRef}
+                    viewport={viewport}
+                    coords={coords}
                 />
                 <Map
                     attributionControl={false}
@@ -117,7 +150,7 @@ function TrackMap() {
                     mapStyle={"mapbox://styles/mapbox/streets-v12"}
                     onMove={evt => setViewport(evt.viewState)}
                 >
-                    <Source id="polylineLayer" type="geojson" data={dataOne}>
+                    <Source id="polylineLayer" type="geojson" data={polylineConfig}>
                         <Layer
                             id="lineLayer"
                             type="line"
@@ -132,18 +165,20 @@ function TrackMap() {
                             }}
                         />
                     </Source>
-                    <Marker
-                        latitude={25}
-                        longitude={55}
-                        anchor='center'
-                        pitchAlignment='map'
-                        rotationAlignment='map'
-                    >
-                        <div className={mapStyles.mapMarker} style={{ transform: `rotate(${heading}deg)` }}>
-                            <img src={VehicleTop} alt="" />
-                            {/* <GoogleIcon iconName={'assistant_navigation'} /> */}
-                        </div>
-                    </Marker>
+                    {markerPosition !== null &&
+                        <Marker
+                            latitude={markerPosition[1]}
+                            longitude={markerPosition[0]}
+                            anchor='center'
+                            pitchAlignment='map'
+                            rotationAlignment='map'
+                        >
+                            <div className={mapStyles.mapMarker} style={{ transform: `rotate(${markerHeading}deg)` }}>
+                                <img src={VehicleTop} alt="" />
+                                {/* <GoogleIcon iconName={'assistant_navigation'} /> */}
+                            </div>
+                        </Marker>
+                    }
                 </Map>
             </div>
         </>

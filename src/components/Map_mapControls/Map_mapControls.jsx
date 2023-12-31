@@ -1,19 +1,20 @@
 import React from 'react'
 import Styles from './Map_mapControls.module.css'
 import GoogleIcon from '../GoogleIcon/GoogleIcon'
+import { recenter, zoomIn, zoomOut } from '../../mapUtils/mapManipulators'
 
 function Map_mapControls({
-    zoomIn = null,
-    zoomOut = null,
-    recenter = null
+    mapRef = null,
+    viewport = null,
+    coords = []
 }) {
     return (
         <div className={`${Styles.wrapper}`}>
             <div className={`${Styles.ctaGroup}`}>
-                <div className={`${Styles.ctaUp}`} onClick={zoomIn}>
+                <div className={`${Styles.ctaUp}`} onClick={() => (zoomIn(mapRef, viewport))}>
                     <GoogleIcon iconName={'add'} />
                 </div>
-                <div className={`${Styles.ctaDown}`} onClick={zoomOut}>
+                <div className={`${Styles.ctaDown}`} onClick={() => (zoomOut(mapRef, viewport))}>
                     <GoogleIcon iconName={'remove'} />
                 </div>
             </div>
@@ -28,7 +29,13 @@ function Map_mapControls({
             </div>
 
             <div className={`${Styles.ctaGroup}`}>
-                <div className={`${Styles.singleCta}`} onClick={recenter}>
+                <div className={`${Styles.singleCta}`} onClick={() => (recenter(mapRef, coords[coords.length - 1][1], coords[coords.length - 1][0]))}>
+                    <GoogleIcon iconName={'route'} />
+                </div>
+            </div>
+
+            <div className={`${Styles.ctaGroup}`}>
+                <div className={`${Styles.singleCta}`} onClick={() => (recenter(mapRef, coords[coords.length - 1][1], coords[coords.length - 1][0]))}>
                     <GoogleIcon iconName={'adjust'} />
                 </div>
             </div>
