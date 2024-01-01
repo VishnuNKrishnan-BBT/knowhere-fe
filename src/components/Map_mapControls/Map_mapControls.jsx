@@ -7,7 +7,10 @@ function Map_mapControls({
     mapRef = null,
     viewport = null,
     coords = [],
-    togglePolylineEnabled = null
+    polylineEnabled = false,
+    togglePolylineEnabled = null,
+    followModeEnabled = false,
+    toggleFollowModeEnabled = null
 }) {
     return (
         <div className={`${Styles.wrapper}`}>
@@ -30,13 +33,13 @@ function Map_mapControls({
             </div>
 
             <div className={`${Styles.ctaGroup}`}>
-                <div className={`${Styles.singleCta}`} onClick={togglePolylineEnabled}>
+                <div className={`${Styles.singleCta} ${polylineEnabled ? Styles.active : ''}`} onClick={togglePolylineEnabled}>
                     <GoogleIcon iconName={'route'} />
                 </div>
             </div>
 
             <div className={`${Styles.ctaGroup}`}>
-                <div className={`${Styles.singleCta}`} onClick={() => (recenter(mapRef, coords[coords.length - 1][1], coords[coords.length - 1][0]))}>
+                <div className={`${Styles.singleCta} ${followModeEnabled ? Styles.active : ''}`} onClick={toggleFollowModeEnabled}>
                     <GoogleIcon iconName={'adjust'} />
                 </div>
             </div>

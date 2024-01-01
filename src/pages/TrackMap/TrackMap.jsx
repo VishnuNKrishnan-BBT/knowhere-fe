@@ -44,6 +44,15 @@ function TrackMap() {
         pitch: 0,
         bearing: 0
     })
+    const [followModeEnabled, setFollowModeEnabled] = useState(true)
+
+    const toggleFollowModeEnabled = () => {
+        setFollowModeEnabled(!followModeEnabled)
+
+        if (!followModeEnabled) { //Using if NOT enabled - When user tries to enable followMode, the value will be disabled. This is when we want to set enabled = true and also recenter the map.
+            recenter(mapRef, coords[coords.length - 1][1], coords[coords.length - 1][0])
+        }
+    }
 
     // Markers
     const [markerPosition, setMarkerPosition] = useState(null)
@@ -58,7 +67,6 @@ function TrackMap() {
     //Finish loading
     useEffect(() => {
         getInitialPolylineCoords().then(coords => {
-            console.log('getInitialPolylineCoords', coords)
             var polyLineCoords = []
             coords.map((coord, key) => {
                 polyLineCoords.push([coord.longitude, coord.latitude])
@@ -101,8 +109,6 @@ function TrackMap() {
 
                 flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, 16)
             }
-
-
         })
 
         // Connection closed
@@ -122,9 +128,9 @@ function TrackMap() {
         }
     }, [])
 
-    // useEffect(() => {
-    //     console.log('coords', ...coords);
-    // }, [coords])
+    useEffect(() => {
+        console.log('followModeEnabled', followModeEnabled);
+    }, [followModeEnabled])
 
 
     const polylineConfig = {
@@ -151,7 +157,10 @@ function TrackMap() {
                     mapRef={mapRef}
                     viewport={viewport}
                     coords={coords}
+                    polylineEnabled={polylineEnabled}
                     togglePolylineEnabled={togglePolylineEnabled}
+                    followModeEnabled={followModeEnabled}
+                    toggleFollowModeEnabled={toggleFollowModeEnabled}
                 />
                 <Map
                     attributionControl={false}

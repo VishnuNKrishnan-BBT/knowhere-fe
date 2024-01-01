@@ -7,6 +7,12 @@
     box-sizing: border-box;
     font-family: 'Urbanist', sans-serif;
     -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+
+    /* To prevent elements from highlighting onclick/touch */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .appWrapper{
