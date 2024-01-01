@@ -29,6 +29,11 @@ function TrackMap() {
 
     // Polyine
     const [coords, setCoords] = useState([])
+    const [polylineEnabled, setPolylineEnabled] = useState(true)
+
+    const togglePolylineEnabled = () => {
+        setPolylineEnabled(!polylineEnabled)
+    }
 
     //Map
     const mapRef = useRef(null)
@@ -53,7 +58,12 @@ function TrackMap() {
     //Finish loading
     useEffect(() => {
         getInitialPolylineCoords().then(coords => {
-            setCoords(coords)
+            console.log('getInitialPolylineCoords', coords)
+            var polyLineCoords = []
+            coords.map((coord, key) => {
+                polyLineCoords.push([coord.longitude, coord.latitude])
+            })
+            setCoords(polyLineCoords)
         })
 
 
@@ -86,6 +96,7 @@ function TrackMap() {
             ) {
                 setMarkerPosition([receivedMessage?.data?.waypoint?.data?.longitude, receivedMessage?.data?.waypoint?.data?.latitude])
                 setMarkerHeading(receivedMessage?.data?.waypoint?.data?.heading)
+
                 setLiveSpeed(receivedMessage?.data?.waypoint?.data?.speed)
 
                 flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, 16)
@@ -111,9 +122,9 @@ function TrackMap() {
         }
     }, [])
 
-    useEffect(() => {
-        console.log('coords', coords.length);
-    }, [coords])
+    // useEffect(() => {
+    //     console.log('coords', ...coords);
+    // }, [coords])
 
 
     const polylineConfig = {
@@ -140,6 +151,7 @@ function TrackMap() {
                     mapRef={mapRef}
                     viewport={viewport}
                     coords={coords}
+                    togglePolylineEnabled={togglePolylineEnabled}
                 />
                 <Map
                     attributionControl={false}
@@ -150,21 +162,23 @@ function TrackMap() {
                     mapStyle={"mapbox://styles/mapbox/streets-v12"}
                     onMove={evt => setViewport(evt.viewState)}
                 >
-                    <Source id="polylineLayer" type="geojson" data={polylineConfig}>
-                        <Layer
-                            id="lineLayer"
-                            type="line"
-                            source="my-data"
-                            layout={{
-                                "line-join": "round",
-                                "line-cap": "round"
-                            }}
-                            paint={{
-                                "line-color": "rgba(0,0,0,1)",
-                                "line-width": 3
-                            }}
-                        />
-                    </Source>
+                    {polylineEnabled &&
+                        <Source id="polylineLayer" type="geojson" data={polylineConfig}>
+                            <Layer
+                                id="lineLayer"
+                                type="line"
+                                source="my-data"
+                                layout={{
+                                    "line-join": "round",
+                                    "line-cap": "round"
+                                }}
+                                paint={{
+                                    "line-color": "rgba(0,0,0,1)",
+                                    "line-width": 3
+                                }}
+                            />
+                        </Source>
+                    }
                     {markerPosition !== null &&
                         <Marker
                             latitude={markerPosition[1]}
