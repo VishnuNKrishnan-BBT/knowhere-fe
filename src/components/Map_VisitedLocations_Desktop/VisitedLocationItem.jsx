@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Styles from './Map_VisitedLocations_Desktop.module.css'
 import GoogleIcon from '../GoogleIcon/GoogleIcon'
 
-function VisitedLocationItem({ locationMain, locationSub, isLast }) {
+function VisitedLocationItem({ timestamp, locationMain, locationSub, isLast }) {
 
     const card = useRef(null)
     const [connectorHeight, setConnectorHeight] = useState('0px')
@@ -23,7 +23,7 @@ function VisitedLocationItem({ locationMain, locationSub, isLast }) {
 
 
                     <div className={`${Styles.timeHolder}`}>
-                        <p className={`${Styles.timestamp}`}>13:40</p>
+                        <p className={`${Styles.timestamp}`}>{timestamp}</p>
                     </div>
                 </div>
 

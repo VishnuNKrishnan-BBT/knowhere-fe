@@ -6,6 +6,31 @@ import VisitedLocationItem from './VisitedLocationItem'
 import MiniJourneyDetails from '../MiniJourneyDetails/MiniJourneyDetails'
 
 function Map_VisitedLocations_Desktop({ view = 'locations', toggleView }) {
+
+
+    const locations = [
+        {
+            timestamp: '13:10',
+            locationMain: 'Al Majaz',
+            locationSub: 'Corniche Street, Sharjah'
+        },
+        {
+            timestamp: '13:30',
+            locationMain: 'Al Nahda',
+            locationSub: 'Al Wadha Street, Sharjah'
+        },
+        {
+            timestamp: '13:40',
+            locationMain: 'Al Mamzar',
+            locationSub: 'Al Ittihad Street'
+        },
+        {
+            timestamp: '13:50',
+            locationMain: 'Dubai International Airport',
+            locationSub: 'Al Ittihad Street'
+        }
+    ]
+
     return (
         <div className={`${Styles.wrapper}`}>
             <div className={`${Styles.topBar}`}>
@@ -22,47 +47,16 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView }) {
             </div>
             {view == 'locations' &&
                 <div className={`${Styles.itemsHolder}`}>
-                    <VisitedLocationItem
-                        locationMain={'Al Majaz'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Al Nahda'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Al Mamzar'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Dubai International Airport'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Garhoud'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'World Trade Centre'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Business Bay'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Al Qouz'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Umm Sequeim'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                    />
-                    <VisitedLocationItem
-                        locationMain={'Al Barsha'}
-                        locationSub={'E44, Dubai Hatta Road'}
-                        isLast
-                    />
+                    {
+                        locations.map((obj, key) => {
+                            return <VisitedLocationItem
+                                timestamp={obj.timestamp}
+                                locationMain={obj.locationMain}
+                                locationSub={obj.locationSub}
+                                isLast={key == locations.length - 1}
+                            />
+                        })
+                    }
                 </div>}
             {view == 'calendar' &&
                 <Calendar
