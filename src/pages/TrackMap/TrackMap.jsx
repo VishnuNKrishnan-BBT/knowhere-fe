@@ -10,6 +10,7 @@ import { getPolylineConfig, getInitialPolylineCoords } from './mapHelpers';
 import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_Desktop/Map_VisitedLocations_Desktop';
 import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
 import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
+import FinishFlag from '../../uiAssets/finishFlag.svg'
 import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_VehicleDetailsBar';
 import Map_mapControls from '../../components/Map_mapControls/Map_mapControls';
 
@@ -44,6 +45,10 @@ function TrackMap() {
         pitch: 0,
         bearing: 0
     })
+    const [zoom, setZoom] = useState(13)
+    const [pitch, setPitch] = useState(0)
+    const [bearing, setBearing] = useState(0)
+
     const [followModeEnabled, setFollowModeEnabled] = useState(true)
 
     const toggleFollowModeEnabled = () => {
@@ -107,7 +112,9 @@ function TrackMap() {
 
                 setLiveSpeed(receivedMessage?.data?.waypoint?.data?.speed)
 
-                flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, 16)
+                if (followModeEnabled) {
+                    flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, 16)
+                }
             }
         })
 
@@ -126,7 +133,7 @@ function TrackMap() {
         return () => {
             socket.close()
         }
-    }, [])
+    }, [followModeEnabled])
 
     useEffect(() => {
         console.log('followModeEnabled', followModeEnabled);
@@ -198,6 +205,9 @@ function TrackMap() {
                         >
                             <div className={mapStyles.mapMarker} style={{ transform: `rotate(${markerHeading}deg)` }}>
                                 <img src={VehicleTop} alt="" />
+                                {/* <div className={`${mapStyles.markerDetails}`}>
+                                        <p>DXB E 43222</p>
+                                    </div> */}
                                 {/* <GoogleIcon iconName={'assistant_navigation'} /> */}
                             </div>
                         </Marker>

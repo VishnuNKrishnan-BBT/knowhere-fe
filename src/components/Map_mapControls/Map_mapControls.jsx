@@ -1,12 +1,11 @@
 import React from 'react'
 import Styles from './Map_mapControls.module.css'
 import GoogleIcon from '../GoogleIcon/GoogleIcon'
-import { recenter, zoomIn, zoomOut } from '../../mapUtils/mapManipulators'
+import { recenter, zoomIn, zoomOut, rotateLeft, rotateRight } from '../../mapUtils/mapManipulators'
 
 function Map_mapControls({
     mapRef = null,
     viewport = null,
-    coords = [],
     polylineEnabled = false,
     togglePolylineEnabled = null,
     followModeEnabled = false,
@@ -24,10 +23,10 @@ function Map_mapControls({
             </div>
 
             <div className={`${Styles.ctaGroup}`}>
-                <div className={`${Styles.ctaUp}`}>
+                <div className={`${Styles.ctaUp}`} onClick={() => (rotateLeft(mapRef, viewport))}>
                     <GoogleIcon iconName={'rotate_left'} />
                 </div>
-                <div className={`${Styles.ctaDown}`}>
+                <div className={`${Styles.ctaDown}`} onClick={() => (rotateRight(mapRef, viewport))}>
                     <GoogleIcon iconName={'rotate_right'} />
                 </div>
             </div>
