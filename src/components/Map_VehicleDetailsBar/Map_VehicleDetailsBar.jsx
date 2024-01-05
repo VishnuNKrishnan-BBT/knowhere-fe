@@ -23,7 +23,7 @@ function Map_VehicleDetailsBar({ liveSpeed = null }) {
                 </div>
             </div>
             <Speedometer
-                speed={liveSpeed == null ? '...' : (liveSpeed * 3.6).toFixed(0)}
+                speed={liveSpeed == null ? '...' : liveSpeed < 0.277778 ? 0 : (liveSpeed * 3.6).toFixed(0)}
             />
             <div className={`${Styles.ctaHolder}`}>
                 <div className={`${Styles.cta}`}>

@@ -98,7 +98,7 @@ function TrackMap() {
         // Listen for messages
         socket.addEventListener('message', (event) => {
             const receivedMessage = JSON.parse(event.data)
-            console.log('Received message:', receivedMessage)
+            // console.log('Received message:', receivedMessage)
 
             //===========PERFORM A TYPE CHECK FOR MESSAGE HERE============
 
