@@ -13,12 +13,14 @@ import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
 import FinishFlag from '../../uiAssets/finishFlag.svg'
 import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_VehicleDetailsBar';
 import Map_mapControls from '../../components/Map_mapControls/Map_mapControls';
+import { getToday } from '../../utils/utils';
 
 function TrackMap() {
 
     // User Experience
     const [isLoading, setIsLoading] = useState(true)
     const [leftPaneView, setLeftPaneView] = useState('locations')
+    const [mobileLocationsPaneActive, setMobileLocationsPaneActive] = useState(false)
 
     const toggleLeftPaneView = () => {
         if (leftPaneView == 'locations') {
@@ -113,7 +115,7 @@ function TrackMap() {
                 setLiveSpeed(receivedMessage?.data?.waypoint?.data?.speed)
 
                 if (followModeEnabled) {
-                    flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, 16)
+                    flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, { zoom: 16 })
                 }
             }
         })
@@ -135,10 +137,6 @@ function TrackMap() {
         }
     }, [followModeEnabled])
 
-    useEffect(() => {
-        console.log('followModeEnabled', followModeEnabled);
-    }, [followModeEnabled])
-
 
     const polylineConfig = {
         type: "Feature",
@@ -155,7 +153,8 @@ function TrackMap() {
             <div className={mapStyles.mapContainer}>
                 <Map_VisitedLocations_Desktop
                     view={leftPaneView}
-                    toggleView={toggleLeftPaneView}
+                    toggleView={toggleLeftPaneView} //Locations/Calendar
+                    activeOnMobile={false}
                 />
                 <Map_VehicleDetailsBar
                     liveSpeed={liveSpeed}
