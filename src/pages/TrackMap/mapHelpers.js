@@ -11,8 +11,8 @@ export const getPolylineConfig = (coords = []) => {
     }
 }
 
-export const getInitialPolylineCoords = async () => {
+export const getInitialPolylineCoords = async (startTimestamp = null, endTimestamp = null) => {
 
-    const coords = await getWayPoints()
+    const coords = await getWayPoints(startTimestamp, endTimestamp)
     return coords
 }

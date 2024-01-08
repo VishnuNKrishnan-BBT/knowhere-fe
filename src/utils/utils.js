@@ -71,5 +71,36 @@ export const getClientGeolocation = async () => { //Move this to server
             returnObject.success = false
             logger('error', `IPAPI Error: ${error}`)
             return returnObject
-        });
+        })
+}
+
+export const getToday = () => {
+    const today = new Date(Date.now()) //Eg: "2024-01-07T07:07:52.699Z"
+
+    return {
+        full: today,
+        day: today.getDate(),
+        month: today.getMonth(),
+        year: today.getFullYear()
+    }
+}
+
+export const getDayStartEndTimestamps = (day = null, month = null, year = null) => {
+
+    if (year == null || month == null || day == null) {
+        return null
+    }
+
+    // Create a Date object for the specified date
+    const startDate = new Date(year, month, day) // Month is zero-based
+    const endDate = new Date(year, month, day + 1) // Next day to get the end of the current day
+
+    // Get timestamps for the start and end of the day
+    const startTimestamp = startDate.getTime()
+    const endTimestamp = endDate.getTime() - 1 // Subtract 1 millisecond to get the end of the previous day
+
+    return {
+        startTimestamp,
+        endTimestamp
+    }
 }

@@ -1,14 +1,55 @@
 import React from 'react'
+import GlobalStyles from '../../global.module.css'
 import Styles from './Map_VisitedLocations_Desktop.module.css'
 import GoogleIcon from '../GoogleIcon/GoogleIcon'
 import Calendar from '../Calendar/Calendar'
 import VisitedLocationItem from './VisitedLocationItem'
 import MiniJourneyDetails from '../MiniJourneyDetails/MiniJourneyDetails'
 
-function Map_VisitedLocations_Desktop({ view = 'locations', toggleView }) {
+function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOnMobile, toggleMobileLocationsPaneActive = null }) {
 
 
     const locations = [
+        {
+            timestamp: '13:10',
+            locationMain: 'Al Majaz',
+            locationSub: 'Corniche Street, Sharjah'
+        },
+        {
+            timestamp: '13:30',
+            locationMain: 'Al Nahda',
+            locationSub: 'Al Wadha Street, Sharjah'
+        },
+        {
+            timestamp: '13:40',
+            locationMain: 'Al Mamzar',
+            locationSub: 'Al Ittihad Street'
+        },
+        {
+            timestamp: '13:50',
+            locationMain: 'Dubai International Airport',
+            locationSub: 'Al Ittihad Street'
+        },
+        {
+            timestamp: '13:10',
+            locationMain: 'Al Majaz',
+            locationSub: 'Corniche Street, Sharjah'
+        },
+        {
+            timestamp: '13:30',
+            locationMain: 'Al Nahda',
+            locationSub: 'Al Wadha Street, Sharjah'
+        },
+        {
+            timestamp: '13:40',
+            locationMain: 'Al Mamzar',
+            locationSub: 'Al Ittihad Street'
+        },
+        {
+            timestamp: '13:50',
+            locationMain: 'Dubai International Airport',
+            locationSub: 'Al Ittihad Street'
+        },
         {
             timestamp: '13:10',
             locationMain: 'Al Majaz',
@@ -32,7 +73,7 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView }) {
     ]
 
     return (
-        <div className={`${Styles.wrapper}`}>
+        <div className={`${Styles.wrapper} ${activeOnMobile ? Styles.mobileActive : Styles.mobileInactive}`}>
             <div className={`${Styles.topBar}`}>
                 <div className={`${Styles.dateNavBtn}`}>
                     <GoogleIcon iconName={'arrow_back_ios_new'} style={{ color: '#eee' }} />
@@ -57,6 +98,12 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView }) {
                             />
                         })
                     }
+                    <div className={`${GlobalStyles.hideOnDesktop} ${GlobalStyles.hideOnTab} ${Styles.spacer}`}></div>
+                    <div className={`${GlobalStyles.hideOnDesktop} ${GlobalStyles.hideOnTab} ${Styles.closeCtaWrapper}`}>
+                        <div className={`${Styles.closeCta}`} onClick={toggleMobileLocationsPaneActive}>
+                            <span className={`${Styles.closeLabel}`}><GoogleIcon iconName={'cancel'} style={{ transform: 'translateY(6px)', marginRight: '5px' }} />CLOSE</span>
+                        </div>
+                    </div>
                 </div>}
             {view == 'calendar' &&
                 <Calendar

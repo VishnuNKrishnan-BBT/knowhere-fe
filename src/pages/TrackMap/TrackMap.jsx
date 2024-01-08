@@ -30,6 +30,10 @@ function TrackMap() {
         }
     }
 
+    const toggleMobileLocationsPaneActive = () => {
+        setMobileLocationsPaneActive(!mobileLocationsPaneActive)
+    }
+
     // Polyine
     const [coords, setCoords] = useState([])
     const [polylineEnabled, setPolylineEnabled] = useState(true)
@@ -154,7 +158,8 @@ function TrackMap() {
                 <Map_VisitedLocations_Desktop
                     view={leftPaneView}
                     toggleView={toggleLeftPaneView} //Locations/Calendar
-                    activeOnMobile={false}
+                    activeOnMobile={mobileLocationsPaneActive}
+                    toggleMobileLocationsPaneActive={toggleMobileLocationsPaneActive}
                 />
                 <Map_VehicleDetailsBar
                     liveSpeed={liveSpeed}
@@ -167,6 +172,7 @@ function TrackMap() {
                     togglePolylineEnabled={togglePolylineEnabled}
                     followModeEnabled={followModeEnabled}
                     toggleFollowModeEnabled={toggleFollowModeEnabled}
+                    toggleMobileLocationsPaneActive={toggleMobileLocationsPaneActive}
                 />
                 <Map
                     attributionControl={false}
