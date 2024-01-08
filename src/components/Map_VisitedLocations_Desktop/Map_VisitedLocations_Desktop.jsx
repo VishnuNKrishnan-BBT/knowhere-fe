@@ -100,7 +100,10 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOn
                     }
                     <div className={`${GlobalStyles.hideOnDesktop} ${GlobalStyles.hideOnTab} ${Styles.spacer}`}></div>
                     <div className={`${GlobalStyles.hideOnDesktop} ${GlobalStyles.hideOnTab} ${Styles.closeCtaWrapper}`}>
-                        <div className={`${Styles.closeCta}`} onClick={toggleMobileLocationsPaneActive}>
+                        <div className={`${Styles.closeCta} ${Styles.primaryCtaBG}`} onClick={toggleView}>
+                            <span className={`${Styles.closeLabel}`}><GoogleIcon iconName={'query_stats'} style={{ transform: 'translateY(6px)', marginRight: '5px' }} />ANALYSE</span>
+                        </div>
+                        <div className={`${Styles.closeCta} ${Styles.secondaryCtaBG}`} onClick={toggleMobileLocationsPaneActive}>
                             <span className={`${Styles.closeLabel}`}><GoogleIcon iconName={'cancel'} style={{ transform: 'translateY(6px)', marginRight: '5px' }} />CLOSE</span>
                         </div>
                     </div>
