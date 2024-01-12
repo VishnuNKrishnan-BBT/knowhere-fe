@@ -3,7 +3,7 @@ import Styles from './Calendar.module.css'
 
 function SingleDate({ date = null, active = false }) {
     return (
-        <p className={`${Styles.gridItem} ${active && Styles.activeDate}`}>{date}</p>
+        <p className={`${Styles.gridItem} ${active && Styles.activeDate}`}>{!!date && date}</p>
     )
 }
 

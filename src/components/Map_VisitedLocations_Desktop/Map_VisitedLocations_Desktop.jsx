@@ -5,6 +5,8 @@ import GoogleIcon from '../GoogleIcon/GoogleIcon'
 import Calendar from '../Calendar/Calendar'
 import VisitedLocationItem from './VisitedLocationItem'
 import MiniJourneyDetails from '../MiniJourneyDetails/MiniJourneyDetails'
+import { useMainContext } from '../../contexts/MainContext'
+import { getMonthName } from '../Calendar/Helpers'
 
 function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOnMobile, toggleMobileLocationsPaneActive = null }) {
 
@@ -72,17 +74,24 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOn
         }
     ]
 
+    const {
+        selectedMonthIndex,
+        selectedYear,
+        monthIncrement,
+        monthDecrement
+    } = useMainContext()
+
     return (
         <div className={`${Styles.wrapper} ${activeOnMobile ? Styles.mobileActive : Styles.mobileInactive}`}>
             <div className={`${Styles.topBar}`}>
-                <div className={`${Styles.dateNavBtn}`}>
+                <div className={`${Styles.dateNavBtn}`} onClick={monthDecrement}>
                     <GoogleIcon iconName={'arrow_back_ios_new'} style={{ color: '#eee' }} />
                 </div>
                 <div className={Styles.headingHolder} onClick={toggleView}>
-                    <p className={`${Styles.day}`}>{view == 'locations' && 'Tuesday'}{view == 'calendar' && 'December'}</p>
-                    <p className={`${Styles.date}`}>{view == 'locations' && '21-11-2023'}{view == 'calendar' && '2023'}</p>
+                    <p className={`${Styles.day}`}>{view == 'locations' && 'Tuesday'}{view == 'calendar' && getMonthName(selectedMonthIndex).long.toUpperCase()}</p>
+                    <p className={`${Styles.date}`}>{view == 'locations' && `21-${selectedMonthIndex + 1}-${selectedYear}`}{view == 'calendar' && selectedYear}</p>
                 </div>
-                <div className={`${Styles.dateNavBtn}`}>
+                <div className={`${Styles.dateNavBtn}`} onClick={monthIncrement}>
                     <GoogleIcon iconName={'arrow_forward_ios'} style={{ color: '#eee' }} />
                 </div>
             </div>
@@ -101,7 +110,7 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOn
                     <div className={`${GlobalStyles.hideOnDesktop} ${GlobalStyles.hideOnTab} ${Styles.spacer}`}></div>
                     <div className={`${GlobalStyles.hideOnDesktop} ${GlobalStyles.hideOnTab} ${Styles.closeCtaWrapper}`}>
                         <div className={`${Styles.closeCta} ${Styles.primaryCtaBG}`} onClick={toggleView}>
-                            <span className={`${Styles.closeLabel}`}><GoogleIcon iconName={'query_stats'} style={{ transform: 'translateY(6px)', marginRight: '5px' }} />ANALYSE</span>
+                            <span className={`${Styles.closeLabel}`}><GoogleIcon iconName={'query_stats'} style={{ transform: 'translateY(6px)', marginRight: '5px' }} />ANALYZE</span>
                         </div>
                         <div className={`${Styles.closeCta} ${Styles.secondaryCtaBG}`} onClick={toggleMobileLocationsPaneActive}>
                             <span className={`${Styles.closeLabel}`}><GoogleIcon iconName={'cancel'} style={{ transform: 'translateY(6px)', marginRight: '5px' }} />CLOSE</span>

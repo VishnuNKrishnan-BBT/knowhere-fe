@@ -1,20 +1,28 @@
-export const getDaysInMonth = (month, year) => {
-    const daysInMonth = new Date(year, month, 0).getDate()
-    const daysArray = []
+export const getDaysInMonth = (year, month) => {
+    const startDate = new Date(year, month, 1)
+    const endDate = new Date(year, month + 1, 0)
 
-    for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month - 1, day)
-        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' })
-        const dateString = date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-        })
+    const daysInMonth = []
+    const currentDate = startDate
 
-        daysArray.push({ dayOfWeek, dateString })
+    while (currentDate <= endDate) {
+
+        const currentDateObj = new Date(currentDate)
+
+        const day = {
+            date: currentDateObj.getDate(),
+            month: currentDateObj.getMonth(),
+            year: currentDateObj.getFullYear(),
+            dayIndex: currentDateObj.getDay(),
+            dayName: getDayName(currentDateObj.getDay())
+        }
+
+        daysInMonth.push(day)
+
+        currentDate.setDate(currentDate.getDate() + 1)
     }
 
-    return daysArray
+    return daysInMonth
 }
 
 export const getMonthName = monthNumber => {
@@ -96,4 +104,22 @@ export const getMonthName = monthNumber => {
     }
 
     return returnObject
+}
+
+export const getDayName = dayNumber => {
+
+    if (isNaN(dayNumber) || dayNumber < 0 || dayNumber > 6) {
+        const errorMessage = 'dayNumber should be a number in the range 0-6.'
+        console.error(errorMessage)
+
+        return {
+            status: 'fail',
+            message: errorMessage,
+            data: null
+        }
+    }
+
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+    return daysOfWeek[dayNumber]
 }

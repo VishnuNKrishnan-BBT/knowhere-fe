@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { retrieveObject } from '../utils/utils';
+import { getToday, retrieveObject } from '../utils/utils';
 import { getAllVehiclesList } from '../supportFunctions/getAllVehicleList';
 
 // Create a new context
@@ -409,6 +409,28 @@ export function ContextProvider({ children }) {
     //Selected date parameters
     const [selectedDate, setSelectedDate] = useState(null)
 
+
+    const [selectedMonthIndex, setSelectedMonthIndex] = useState(getToday().month)
+    const [selectedYear, setSelectedYear] = useState(getToday().year)
+
+    const monthIncrement = () => {
+        if (selectedMonthIndex == 11) {
+            setSelectedMonthIndex(0)
+            setSelectedYear(selectedYear + 1)
+        } else {
+            setSelectedMonthIndex(selectedMonthIndex + 1)
+        }
+    }
+
+    const monthDecrement = () => {
+        if (selectedMonthIndex == 0) {
+            setSelectedMonthIndex(11)
+            setSelectedYear(selectedYear - 1)
+        } else {
+            setSelectedMonthIndex(selectedMonthIndex - 1)
+        }
+    }
+
     // Passing values and functions into the context
     const contextValues = {
         isLoading_pageContent,
@@ -426,7 +448,13 @@ export function ContextProvider({ children }) {
         currentVehicle,
         setCurrentVehicle,
         selectedDate,
-        setSelectedDate
+        setSelectedDate,
+        selectedMonthIndex,
+        setSelectedMonthIndex,
+        selectedYear,
+        setSelectedYear,
+        monthIncrement,
+        monthDecrement
     }
 
     return (
