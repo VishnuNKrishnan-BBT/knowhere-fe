@@ -32,28 +32,30 @@ function Calendar({ monthIndex = 1, monthBar = true }) {
 
     return (
         <div className={`${Styles.wrapper}`}>
-            {monthBar &&
-                <div className={`${Styles.monthName}`}>
-                    <GoogleIcon iconName={'arrow_back_ios_new'} onClick={monthIncrement} />
-                    <p>{getMonthName(selectedMonthIndex).long.toUpperCase()}</p>
-                    <GoogleIcon iconName={'arrow_forward_ios'} onClick={monthDecrement} />
-                </div>}
+            <div className={`${Styles.holder}`}>
+                {monthBar &&
+                    <div className={`${Styles.monthName}`}>
+                        <GoogleIcon iconName={'arrow_back_ios_new'} onClick={monthIncrement} />
+                        <p>{getMonthName(selectedMonthIndex).long.toUpperCase()}</p>
+                        <GoogleIcon iconName={'arrow_forward_ios'} onClick={monthDecrement} />
+                    </div>}
 
-            <p className={`${Styles.gridHeadings}`}>S</p>
-            <p className={`${Styles.gridHeadings}`}>M</p>
-            <p className={`${Styles.gridHeadings}`}>T</p>
-            <p className={`${Styles.gridHeadings}`}>W</p>
-            <p className={`${Styles.gridHeadings}`}>T</p>
-            <p className={`${Styles.gridHeadings}`}>F</p>
-            <p className={`${Styles.gridHeadings}`}>S</p>
+                <p className={`${Styles.gridHeadings}`}>S</p>
+                <p className={`${Styles.gridHeadings}`}>M</p>
+                <p className={`${Styles.gridHeadings}`}>T</p>
+                <p className={`${Styles.gridHeadings}`}>W</p>
+                <p className={`${Styles.gridHeadings}`}>T</p>
+                <p className={`${Styles.gridHeadings}`}>F</p>
+                <p className={`${Styles.gridHeadings}`}>S</p>
 
-            {blankTileArray.map((obj, key) => {
-                return <SingleDate date={null} key={key} />
-            })}
+                {blankTileArray.map((obj, key) => {
+                    return <SingleDate date={null} key={key} />
+                })}
 
-            {daysInSelectedMonth.map((date, key) => {
-                return <SingleDate date={date.date} key={key} />
-            })}
+                {daysInSelectedMonth.map((date, key) => {
+                    return <SingleDate date={date.date} key={key} />
+                })}
+            </div>
         </div>
     )
 }

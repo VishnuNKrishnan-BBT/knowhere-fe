@@ -118,12 +118,16 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOn
                     </div>
                 </div>}
             {view == 'calendar' &&
-                <Calendar
-                    monthIndex={3}
-                    monthBar={false}
-                />}
+                <>
+                    <Calendar
+                        monthIndex={3}
+                        monthBar={false}
+                    />
+                    <MiniJourneyDetails />
+                </>
+            }
 
-            <MiniJourneyDetails />
+
         </div>
     )
 }

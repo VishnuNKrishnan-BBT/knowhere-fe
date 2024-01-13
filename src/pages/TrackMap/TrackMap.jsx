@@ -119,7 +119,26 @@ function TrackMap() {
                 setLiveSpeed(receivedMessage?.data?.waypoint?.data?.speed)
 
                 if (followModeEnabled) {
-                    flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, { zoom: 16 })
+                    const speed = receivedMessage?.data?.waypoint?.data?.speed
+                    var zoom = 15
+
+                    if ((speed * 3.6) <= 60) {
+                        zoom = 16
+                    }
+
+                    if ((speed * 3.6) > 60 && (speed * 3.6) <= 80) {
+                        zoom = 15
+                    }
+
+                    if ((speed * 3.6) > 80 && (speed * 3.6) <= 100) {
+                        zoom = 14
+                    }
+
+                    if ((speed * 3.6) > 100) {
+                        zoom = 13
+                    }
+
+                    flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, { zoom: zoom, bearing: receivedMessage?.data?.waypoint?.data?.heading })
                 }
             }
         })

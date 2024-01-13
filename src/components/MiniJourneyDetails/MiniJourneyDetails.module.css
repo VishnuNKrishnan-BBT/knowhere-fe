@@ -1,6 +1,6 @@
 .wrapper{
     min-width: 300px;
-    max-height: calc(100% - 360px);
+    max-height: calc(100% - 400px);
     /* background-color: antiquewhite; */
     display: grid;
     grid-template-columns: auto auto;

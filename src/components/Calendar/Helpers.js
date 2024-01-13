@@ -1,3 +1,5 @@
+import { getDayStartEndTimestamps } from "../../utils/utils"
+
 export const getDaysInMonth = (year, month) => {
     const startDate = new Date(year, month, 1)
     const endDate = new Date(year, month + 1, 0)
@@ -14,7 +16,9 @@ export const getDaysInMonth = (year, month) => {
             month: currentDateObj.getMonth(),
             year: currentDateObj.getFullYear(),
             dayIndex: currentDateObj.getDay(),
-            dayName: getDayName(currentDateObj.getDay())
+            dayName: getDayName(currentDateObj.getDay()),
+            startTimestamp: getDayStartEndTimestamps(currentDateObj.getDate(), currentDateObj.getMonth(), currentDateObj.getFullYear()).startTimestamp,
+            endTimestamp: getDayStartEndTimestamps(currentDateObj.getDate(), currentDateObj.getMonth(), currentDateObj.getFullYear()).endTimestamp
         }
 
         daysInMonth.push(day)
