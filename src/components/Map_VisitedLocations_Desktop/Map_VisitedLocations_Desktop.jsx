@@ -8,71 +8,7 @@ import MiniJourneyDetails from '../MiniJourneyDetails/MiniJourneyDetails'
 import { useMainContext } from '../../contexts/MainContext'
 import { getMonthName } from '../Calendar/Helpers'
 
-function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOnMobile, toggleMobileLocationsPaneActive = null }) {
-
-
-    const locations = [
-        {
-            timestamp: '13:10',
-            locationMain: 'Al Majaz',
-            locationSub: 'Corniche Street, Sharjah'
-        },
-        {
-            timestamp: '13:30',
-            locationMain: 'Al Nahda',
-            locationSub: 'Al Wadha Street, Sharjah'
-        },
-        {
-            timestamp: '13:40',
-            locationMain: 'Al Mamzar',
-            locationSub: 'Al Ittihad Street'
-        },
-        {
-            timestamp: '13:50',
-            locationMain: 'Dubai International Airport',
-            locationSub: 'Al Ittihad Street'
-        },
-        {
-            timestamp: '13:10',
-            locationMain: 'Al Majaz',
-            locationSub: 'Corniche Street, Sharjah'
-        },
-        {
-            timestamp: '13:30',
-            locationMain: 'Al Nahda',
-            locationSub: 'Al Wadha Street, Sharjah'
-        },
-        {
-            timestamp: '13:40',
-            locationMain: 'Al Mamzar',
-            locationSub: 'Al Ittihad Street'
-        },
-        {
-            timestamp: '13:50',
-            locationMain: 'Dubai International Airport',
-            locationSub: 'Al Ittihad Street'
-        },
-        {
-            timestamp: '13:10',
-            locationMain: 'Al Majaz',
-            locationSub: 'Corniche Street, Sharjah'
-        },
-        {
-            timestamp: '13:30',
-            locationMain: 'Al Nahda',
-            locationSub: 'Al Wadha Street, Sharjah'
-        },
-        {
-            timestamp: '13:40',
-            locationMain: 'Al Mamzar',
-            locationSub: 'Al Ittihad Street'
-        },
-        {
-            timestamp: '13:50',
-            locationMain: 'Dubai International Airport',
-            locationSub: 'Al Ittihad Street'
-        }
-    ]
+function Map_VisitedLocations_Desktop({ visitedLocations = [], view = 'locations', toggleView, activeOnMobile, toggleMobileLocationsPaneActive = null }) {
 
     const {
         selectedMonthIndex,
@@ -98,12 +34,13 @@ function Map_VisitedLocations_Desktop({ view = 'locations', toggleView, activeOn
             {view == 'locations' &&
                 <div className={`${Styles.itemsHolder}`}>
                     {
-                        locations.map((obj, key) => {
+                        visitedLocations.length > 0 && visitedLocations.map((obj, key) => {
                             return <VisitedLocationItem
                                 timestamp={obj.timestamp}
                                 locationMain={obj.locationMain}
                                 locationSub={obj.locationSub}
-                                isLast={key == locations.length - 1}
+                                isLast={key == visitedLocations.length - 1}
+                                key={key}
                             />
                         })
                     }

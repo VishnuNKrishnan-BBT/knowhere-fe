@@ -12,6 +12,11 @@ function VisitedLocationItem({ timestamp, locationMain, locationSub, isLast }) {
         setConnectorHeight(cardHeight)
     }, [])
 
+    const time = new Date(timestamp)
+    const hour = String(time.getHours()).padStart(2, '0');
+    const minute = String(time.getMinutes()).padStart(2, '0');
+    const displayTime = `${hour}:${minute}`
+
     return (
         <div className={`${Styles.item}`}>
             {/* Time */}
@@ -23,7 +28,7 @@ function VisitedLocationItem({ timestamp, locationMain, locationSub, isLast }) {
 
 
                     <div className={`${Styles.timeHolder}`}>
-                        <p className={`${Styles.timestamp}`}>{timestamp}</p>
+                        <p className={`${Styles.timestamp}`}>{displayTime}</p>
                     </div>
                 </div>
 

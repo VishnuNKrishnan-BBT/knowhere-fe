@@ -6,7 +6,7 @@ import mapStyles from './map.module.css'
 import { recenter, flyToSite } from '../../mapUtils/mapManipulators'
 import NavMenuPrimary from '../../components/NavMenuPrimary/NavMenuPrimary';
 import LoadingOverlayForMap from '../../components/LoadingOverlayForMap/LoadingOverlayForMap';
-import { getPolylineConfig, getInitialPolylineCoords } from './mapHelpers';
+import { getPolylineConfig, getInitialPolylineCoords, addNewVisitedLocation } from './mapHelpers';
 import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_Desktop/Map_VisitedLocations_Desktop';
 import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
 import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
@@ -64,6 +64,9 @@ function TrackMap() {
             recenter(mapRef, coords[coords.length - 1][1], coords[coords.length - 1][0])
         }
     }
+
+    // Visited Locations
+    const [visitedLocations, setVisitedLocations] = useState([])
 
     // Markers
     const [markerPosition, setMarkerPosition] = useState(null)
@@ -141,6 +144,23 @@ function TrackMap() {
                     flyToSite(mapRef, receivedMessage?.data?.waypoint?.data?.latitude, receivedMessage?.data?.waypoint?.data?.longitude, { zoom: zoom, bearing: receivedMessage?.data?.waypoint?.data?.heading })
                 }
             }
+
+            //Visited Locations Update
+            if (
+                receivedMessage?.data?.resolvedLocation?.data?.timestamp !== undefined &&
+                receivedMessage?.data?.resolvedLocation?.data?.latitude !== undefined &&
+                receivedMessage?.data?.resolvedLocation?.data?.longitude !== undefined &&
+                receivedMessage?.data?.resolvedLocation?.data?.uuid !== undefined &&
+                receivedMessage?.data?.resolvedLocation?.data?.locationMain !== undefined &&
+                receivedMessage?.data?.resolvedLocation?.data?.locationSub !== undefined
+            ) {
+                addNewVisitedLocation(visitedLocations, {
+                    timestamp: receivedMessage?.data?.resolvedLocation?.data?.timestamp,
+                    uuid: receivedMessage?.data?.resolvedLocation?.data?.uuid,
+                    locationMain: receivedMessage?.data?.resolvedLocation?.data?.locationMain,
+                    locationSub: receivedMessage?.data?.resolvedLocation?.data?.locationSub
+                }, setVisitedLocations)
+            }
         })
 
         // Connection closed
@@ -160,6 +180,10 @@ function TrackMap() {
         }
     }, [followModeEnabled])
 
+    useEffect(() => {
+        console.log('visitedLocations', visitedLocations);
+    }, [visitedLocations])
+
 
     const polylineConfig = {
         type: "Feature",
@@ -176,6 +200,7 @@ function TrackMap() {
             <div className={mapStyles.mapContainer}>
                 <Map_VisitedLocations_Desktop
                     view={leftPaneView}
+                    visitedLocations={visitedLocations}
                     toggleView={toggleLeftPaneView} //Locations/Calendar
                     activeOnMobile={mobileLocationsPaneActive}
                     toggleMobileLocationsPaneActive={toggleMobileLocationsPaneActive}
