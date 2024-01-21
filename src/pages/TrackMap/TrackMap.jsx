@@ -9,11 +9,11 @@ import LoadingOverlayForMap from '../../components/LoadingOverlayForMap/LoadingO
 import { getPolylineConfig, getInitialPolylineCoords, addNewVisitedLocation } from './mapHelpers';
 import Map_VisitedLocations_Desktop from '../../components/Map_VisitedLocations_Desktop/Map_VisitedLocations_Desktop';
 import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
-import VehicleTop from '../../uiAssets/vehicleTop/vehicleTop0.png'
 import FinishFlag from '../../uiAssets/finishFlag.svg'
 import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_VehicleDetailsBar';
 import Map_mapControls from '../../components/Map_mapControls/Map_mapControls';
 import { getToday } from '../../utils/utils';
+import VehicleMarker from '../../components/VehicleMarker/VehicleMarker';
 
 function TrackMap() {
 
@@ -252,13 +252,14 @@ function TrackMap() {
                             pitchAlignment='map'
                             rotationAlignment='map'
                         >
-                            <div className={mapStyles.mapMarker} style={{ transform: `rotate(${markerHeading}deg)` }}>
+                            {/* <div className={mapStyles.mapMarker} style={{ transform: `rotate(${markerHeading}deg)` }}>
                                 <img src={VehicleTop} alt="" />
-                                {/* <div className={`${mapStyles.markerDetails}`}>
-                                        <p>DXB E 43222</p>
-                                    </div> */}
-                                {/* <GoogleIcon iconName={'assistant_navigation'} /> */}
-                            </div>
+                                <div className={`${mapStyles.markerDetails}`}>
+                                    <p>DXB E 43222</p>
+                                </div>
+                                {/*<GoogleIcon iconName={'assistant_navigation'} />
+                            </div> */}
+                            <VehicleMarker variant={'LR4'} heading={markerHeading} mapBearing={viewport.bearing} speed={liveSpeed} />
                         </Marker>
                     }
                 </Map>
