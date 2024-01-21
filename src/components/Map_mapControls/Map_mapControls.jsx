@@ -11,7 +11,9 @@ function Map_mapControls({
     togglePolylineEnabled = null,
     followModeEnabled = false,
     toggleFollowModeEnabled = null,
-    toggleMobileLocationsPaneActive = null
+    toggleMobileLocationsPaneActive = null,
+    allMarkerInfoEnabled = false,
+    toggleAllMarkerInfoEnabled = null
 }) {
     return (
         <div className={`${Styles.wrapper}`}>
@@ -40,8 +42,11 @@ function Map_mapControls({
             </div>
 
             <div className={`${Styles.ctaGroup}`}>
-                <div className={`${Styles.singleCta} ${polylineEnabled ? Styles.active : ''}`} onClick={togglePolylineEnabled}>
+                <div className={`${Styles.ctaUp} ${polylineEnabled ? Styles.active : ''}`} onClick={togglePolylineEnabled}>
                     <GoogleIcon iconName={'route'} />
+                </div>
+                <div className={`${Styles.ctaDown} ${allMarkerInfoEnabled ? Styles.active : ''}`} onClick={toggleAllMarkerInfoEnabled}>
+                    <GoogleIcon iconName={'no_crash'} />
                 </div>
             </div>
 

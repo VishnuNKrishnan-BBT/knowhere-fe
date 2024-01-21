@@ -39,7 +39,7 @@ function Map_VisitedLocations_Desktop({ visitedLocations = [], view = 'locations
                                 timestamp={obj.timestamp}
                                 locationMain={obj.locationMain}
                                 locationSub={obj.locationSub}
-                                isLast={key == visitedLocations.length - 1}
+                                isLast={key == visitedLocations.length - 1 || (visitedLocations[key + 1] !== undefined && visitedLocations[key + 1].newLeg)}
                                 key={key}
                             />
                         })

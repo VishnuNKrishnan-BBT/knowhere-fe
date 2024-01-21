@@ -42,6 +42,12 @@ function TrackMap() {
         setPolylineEnabled(!polylineEnabled)
     }
 
+    //Marker Info
+    const [allMarkerInfoEnabled, setAllMarkerInfoEnabled] = useState(true)
+
+    const toggleAllMarkerInfoEnabled = () => {
+        setAllMarkerInfoEnabled(!allMarkerInfoEnabled)
+    }
     //Map
     const mapRef = useRef(null)
     const [viewport, setViewport] = useState({
@@ -116,6 +122,7 @@ function TrackMap() {
                 receivedMessage?.data?.waypoint?.data?.longitude !== undefined &&
                 receivedMessage?.data?.waypoint?.data?.heading !== undefined
             ) {
+                setCoords(prev => [...prev, [receivedMessage?.data?.waypoint?.data?.longitude, receivedMessage?.data?.waypoint?.data?.latitude]])
                 setMarkerPosition([receivedMessage?.data?.waypoint?.data?.longitude, receivedMessage?.data?.waypoint?.data?.latitude])
                 setMarkerHeading(receivedMessage?.data?.waypoint?.data?.heading)
 
@@ -217,6 +224,8 @@ function TrackMap() {
                     followModeEnabled={followModeEnabled}
                     toggleFollowModeEnabled={toggleFollowModeEnabled}
                     toggleMobileLocationsPaneActive={toggleMobileLocationsPaneActive}
+                    allMarkerInfoEnabled={allMarkerInfoEnabled}
+                    toggleAllMarkerInfoEnabled={toggleAllMarkerInfoEnabled}
                 />
                 <Map
                     attributionControl={false}
@@ -259,7 +268,7 @@ function TrackMap() {
                                 </div>
                                 {/*<GoogleIcon iconName={'assistant_navigation'} />
                             </div> */}
-                            <VehicleMarker variant={'LR4'} heading={markerHeading} mapBearing={viewport.bearing} speed={liveSpeed} />
+                            <VehicleMarker variant={'LR4'} heading={markerHeading} mapBearing={viewport.bearing} speed={liveSpeed} allMarkerInfoEnabled={allMarkerInfoEnabled} location={visitedLocations.length > 0 ? visitedLocations[visitedLocations.length - 1].locationMain : null} />
                         </Marker>
                     }
                 </Map>
