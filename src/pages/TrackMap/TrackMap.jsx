@@ -12,7 +12,7 @@ import GoogleIcon from '../../components/GoogleIcon/GoogleIcon';
 import FinishFlag from '../../uiAssets/finishFlag.svg'
 import Map_VehicleDetailsBar from '../../components/Map_VehicleDetailsBar/Map_VehicleDetailsBar';
 import Map_mapControls from '../../components/Map_mapControls/Map_mapControls';
-import { getToday } from '../../utils/utils';
+import { getDayStartEndTimestamps, getToday } from '../../utils/utils';
 import VehicleMarker from '../../components/VehicleMarker/VehicleMarker';
 
 function TrackMap() {
@@ -86,7 +86,10 @@ function TrackMap() {
 
     //Finish loading
     useEffect(() => {
-        getInitialPolylineCoords().then(coords => {
+        const today = getToday()
+        const todayTimestamps = getDayStartEndTimestamps(today.day, today.month, today.year)
+
+        getInitialPolylineCoords(todayTimestamps.startTimestamp, todayTimestamps.endTimestamp).then(coords => {
             var polyLineCoords = []
             coords.map((coord, key) => {
                 polyLineCoords.push([coord.longitude, coord.latitude])
